@@ -1,0 +1,71 @@
+.lblTitulo{
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.lblMsgError{
+  color: #e64c4c;
+  font-size: 20px;
+}
+
+.form-group{
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.form-control{
+  background-color: #dddddd;
+  border: 2px solid transparent;
+  height: 50px;
+  color: #000000;
+}
+
+label{
+  color: #000000 !important;
+}
+
+.form-control :focus {
+  background-color: rgb(168, 168, 168);
+}
+
+button{
+  height: 50px;
+  width: 160px;
+  font-size: 20px;
+  margin-top: 50px;
+}
+
+.btn-outline-secondary{
+  color: #43b88f;
+  background-color: transparent;
+  border-color: #43b88f;
+}
+
+
+.btn-outline-secondary:hover{
+  color: #fff;
+  background-color: #43b88f;
+  border-color: #43b88f;
+}
+
+
+.scrollable-col {
+  overflow-y: auto;
+  max-height: 89vh;
+}
+
+.scrollable-col::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-col::-webkit-scrollbar-track {
+  background: #cacaca;
+}
+
+.scrollable-col::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.scrollable-col::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

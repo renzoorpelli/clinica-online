@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+body{
+  /* margin-top: 100px; */
+  padding-top: 65px;
+  padding-bottom: 50px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.btn-outline-secondary{
+  color: #43b88f;
+  background-color: transparent;
+  border-color: #43b88f;
+}
+
+
+.btn-outline-secondary:hover{
+  color: #fff;
+  background-color: #43b88f;
+  border-color: #43b88f;
+}

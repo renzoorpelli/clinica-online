@@ -1,0 +1,204 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="home">
+      <svg
+        version="1.1"
+        style="
+          width: 45px;
+          height: 45px;
+          vertical-align: middle;
+          overflow: hidden;
+        "
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 512 512"
+        xml:space="preserve"
+      >
+        <polygon
+          style="fill: #e4f1fb"
+          points="409.6,238.933 409.6,0 102.4,0 102.4,238.933 25.6,238.933 25.6,512 102.4,512 409.6,512
+	486.4,512 486.4,238.933 "
+        />
+        <polygon
+          style="fill: #c9e3f7"
+          points="409.6,238.933 409.6,0 256,0 256,512 486.4,512 486.4,238.933 "
+        />
+        <polygon
+          style="fill: #d80027"
+          points="341.333,119.467 290.133,119.467 290.133,68.267 221.867,68.267 221.867,119.467
+	170.667,119.467 170.667,187.733 221.867,187.733 221.867,238.933 290.133,238.933 290.133,187.733 341.333,187.733 "
+        />
+        <polygon
+          style="fill: #a2001d"
+          points="290.133,119.467 290.133,68.267 256,68.267 256,238.933 290.133,238.933 290.133,187.733
+	341.333,187.733 341.333,119.467 "
+        />
+        <rect
+          x="128"
+          y="409.6"
+          style="fill: #5a8bb0"
+          width="256"
+          height="102.4"
+        />
+        <rect
+          x="256"
+          y="409.6"
+          style="fill: #3c5d76"
+          width="128"
+          height="102.4"
+        />
+        <g>
+          <rect
+            x="332.8"
+            y="307.2"
+            style="fill: #ffffff"
+            width="51.2"
+            height="51.2"
+          />
+          <rect
+            x="230.4"
+            y="307.2"
+            style="fill: #ffffff"
+            width="51.2"
+            height="51.2"
+          />
+          <rect
+            x="119.467"
+            y="307.2"
+            style="fill: #ffffff"
+            width="51.2"
+            height="51.2"
+          />
+          <rect
+            x="17.067"
+            y="307.2"
+            style="fill: #ffffff"
+            width="59.733"
+            height="51.2"
+          />
+          <rect
+            x="17.067"
+            y="409.6"
+            style="fill: #ffffff"
+            width="59.733"
+            height="51.2"
+          />
+          <rect
+            x="435.2"
+            y="409.6"
+            style="fill: #ffffff"
+            width="59.733"
+            height="51.2"
+          />
+          <rect
+            x="435.2"
+            y="307.2"
+            style="fill: #ffffff"
+            width="59.733"
+            height="51.2"
+          />
+        </g>
+      </svg>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="home"
+            >Bienvenido</a
+          >
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Usuario
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" routerLink="usuario/login"
+                >Iniciar Sesion</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="usuario/register"
+                >Registro</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" routerLink="usuario/profile"
+                >Mi Perfil</a
+              >
+            </li>
+          </ul>
+        </li>
+        <ng-container *ngIf="this.isLoggedInAndAdmin()">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Panel Administrador
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" routerLink="usuario/admin">Admisión Especialistas</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <!-- <li>
+                <a class="dropdown-item" routerLink="juegos/mayoromenor"
+                  >Mayor o menor</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" routerLink="juegos/preguntados"
+                  >Preguntados</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" routerLink="juegos/pong">Pong</a></li> -->
+            </ul>
+          </li>
+
+        </ng-container>
+      </ul>
+      <!-- aca esta la seccion de usuario-->
+      <!-- <ng-container *ngIf="!this._currentUser; else Bienvenido" class="ms-auto">
+        <div class="d-flex align-items-center">
+          <span class="me-3">Por favor inicia sesión</span>
+        </div>
+      </ng-container>
+      <ng-template #Bienvenido>
+        <ul class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Bienvenido {{this._currentUser?._nombre}}
+          </a>
+          <ul class="dropdown-menu">
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logOut()">Cerrar Sesión</a></li>
+          </ul>
+        </ul>
+      </ng-template> -->
+    </div>
+  </div>
+</nav>

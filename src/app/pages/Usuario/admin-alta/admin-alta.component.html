@@ -1,0 +1,253 @@
+<div class="scrollable-col">
+  <div class="contanier">
+    <app-form
+      title="Crear usuario administrador"
+      [form]="registerForm"
+      (formSubmitted)="onSubmitEventHandler($event)"
+    >
+      <div class="row">
+        <div class="col">
+          <div class="form-group mb-3" [formGroup]="registerForm">
+            <label for="nombre" class="lblTitulo">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              formControlName="nombre"
+            />
+            <ng-container
+              *ngIf="
+                this.nombre?.invalid && (this.nombre?.touched || this.nombre?.dirty)
+              "
+            >
+              <div *ngIf="this.nombre!.errors?.['required']">
+                <div>
+                  <label class="text-danger lblMsgError"
+                    >El Nombre no puede estar vacio.</label
+                  >
+                </div>
+              </div>
+              <div *ngIf="this.nombre!.errors?.['minlength']">
+                <div>
+                  <label class="text-danger lblMsgError"
+                    >El nombre no puede tener menos de 10 caracteres.</label
+                  >
+                </div>
+              </div>
+              <div *ngIf="this.nombre!.errors?.['maxlength']">
+                <div>
+                  <label class="text-danger lblMsgError"
+                    >El nombre no puede tener más de 80 caracteres.</label
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group mb-3" [formGroup]="registerForm">
+            <label for="apellido" class="lblTitulo">Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="apellido"
+              formControlName="apellido"
+            />
+            <ng-container
+              *ngIf="
+                this.apellido?.invalid && (this.apellido?.touched || this.apellido?.dirty)
+              "
+            >
+              <div *ngIf="this.apellido!.errors?.['required']">
+                <div>
+                  <label class="text-danger lblMsgError"
+                    >El apellido no puede estar vacio.</label
+                  >
+                </div>
+              </div>
+              <div *ngIf="this.apellido!.errors?.['minlength']">
+                <div>
+                  <label class="text-danger lblMsgError"
+                    >El apellido no puede tener menos de 10 caracteres.</label
+                  >
+                </div>
+              </div>
+              <div *ngIf="this.apellido!.errors?.['maxlength']">
+                <div>
+                  <label class="text-danger lblMsgError"
+                    >El apellido no puede tener más de 80 caracteres.</label
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group mb-3" [formGroup]="registerForm">
+            <label for="email" class="lblTitulo">Email:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              formControlName="email"
+            />
+            <ng-container
+              *ngIf="this.email?.invalid && (this.email?.touched || this.email?.dirty)"
+            >
+              <div
+                *ngIf="this.email!.errors?.['required'] || this.email!.errors?.['email']"
+              >
+                <label class="text-danger lblMsgError">Email Inválido</label>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group mb-3" [formGroup]="registerForm">
+            <label for="confirmEmail" class="lblTitulo">Confirmar Email:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="confirmEmail"
+              formControlName="confirmEmail"
+            />
+            <ng-container
+              *ngIf="
+                this.confirmEmail?.invalid &&
+                (this.confirmEmail?.touched || this.confirmEmail?.dirty)
+              "
+            >
+              <div
+                *ngIf="this.confirmEmail!.errors?.['required'] || this.confirmEmail!.errors?.['email']"
+              >
+                <label class="text-danger lblMsgError">Email Inválido</label>
+              </div>
+              <div *ngIf="this.confirmEmail!.errors?.['notEqual']">
+                <label class="text-danger lblMsgError">Los Emails no coinciden</label>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3" [formGroup]="registerForm">
+        <label for="password" class="lblTitulo">Password:</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+        />
+        <ng-container
+          *ngIf="
+            this.password?.invalid &&
+            (this.password?.touched || this.password?.dirty)
+          "
+        >
+          <div
+            *ngIf="this.password!.errors?.['required'] || this.password!.errors?.['passowrd']"
+          >
+            <label class="text-danger lblMsgError"
+              >Password no puede estar vacio</label
+            >
+          </div>
+        </ng-container>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group mb-3" [formGroup]="registerForm">
+            <label for="dni" class="lblTitulo">DNI</label>
+            <input
+              type="text"
+              class="form-control"
+              id="dni"
+              formControlName="dni"
+            />
+            <ng-container
+              *ngIf="
+                this.dni?.invalid &&
+                (this.dni?.touched || this.dni?.dirty)
+              "
+            >
+              <div
+                *ngIf="this.dni!.errors?.['required']"
+              >
+                <label class="text-danger lblMsgError">DNI Inválido</label>
+              </div>
+              <div
+                *ngIf="this.dni!.errors?.['minlength']"
+              >
+                <label class="text-danger lblMsgError">DNI debe tener 8 caracteres ej: xx.xxx.xxx</label>
+              </div>
+              <div
+                *ngIf="this.dni!.errors?.['maxlength']"
+              >
+                <label class="text-danger lblMsgError">DNI debe tener 8 caracteres ej: xx.xxx.xxx</label>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group mb-3" [formGroup]="registerForm">
+            <label for="dni" class="lblTitulo">Edad</label>
+            <input
+              type="number"
+              class="form-control"
+              id="edad"
+              formControlName="edad"
+            />
+            <ng-container
+              *ngIf="
+                this.edad?.invalid &&
+                (this.edad?.touched || this.edad?.dirty)
+              "
+            >
+              <div
+                *ngIf="this.dni!.errors?.['required']"
+              >
+                <label class="text-danger lblMsgError">Edad Inválido</label>
+              </div>
+              <div
+                *ngIf="this.dni!.errors?.['min']"
+              >
+                <label class="text-danger lblMsgError">La edad de debe ser positiva</label>
+              </div>
+              <div
+                *ngIf="this.dni!.errors?.['max']"
+              >
+                <label class="text-danger lblMsgError">Ingresa una edad valida</label>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3" [formGroup]="registerForm">
+        <label for="profileImage1" class="lblTitulo">Imagen de perfil</label>
+        <input
+          type="text"
+          class="form-control"
+          id="profileImage1"
+          formControlName="profileImage1"
+        />
+        <ng-container
+          *ngIf="
+            this.profileImage1?.invalid &&
+            (this.profileImage1?.touched || this.profileImage1?.dirty)
+          "
+        >
+          <div
+            *ngIf="this.profileImage1!.errors?.['required']"
+          >
+            <label class="text-danger lblMsgError">Imagen Inválido</label>
+          </div>
+        </ng-container>
+      </div>
+      <button class="btn btn-outline-secondary mx-1" type="submit">
+        Registrarse
+      </button>
+      <button class="btn btn-outline-danger" routerLink="/usuario/admin">Volver</button>
+    </app-form>
+    </div>
+</div>
+

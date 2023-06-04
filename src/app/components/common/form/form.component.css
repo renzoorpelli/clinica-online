@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.card {
+  background-color: #fafafa;
+  width: 70vh;
+  align-content: center;
+  border: 2px solid transparent;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+form {
+  flex-grow: 1;
+}

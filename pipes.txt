@@ -1,0 +1,18 @@
+{{item. nombre | uppercase}} la pippe que va a convertir el dato en UPPERCASE
+{{item. fecha | date: 'YYYY'}}
+{{item. nombre | uppercase}}
+
+
+
+
+ngFor= let item of Obsevable<T> | async> // PIPE ASYNC obtener data de un observable sin necesidad de subscribirse, se desuscribe automateicamente.
+
+
+crear un pepe
+
+ng g pipe truncate truncate
+
+implementa PipeTransform
+
+
+transfor(value: uknown, ... args[]) => recibe el valor por parametro, MAS argumentos opcionales.

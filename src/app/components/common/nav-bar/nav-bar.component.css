@@ -1,0 +1,50 @@
+.navbar{
+  background-color: #43b88f  !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: -7px 14px 15px -5px rgb(161, 161, 161);
+}
+
+.navbar a {
+  color:  #eeeeee;
+  font-size: 18px;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-weight: 350;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: #67696b;
+}
+
+.navbar ul ul{
+  background-color: #43b88f;
+}
+
+.navbar ul ul :hover {
+  background-color: #ffffff;
+  color: #43b88f;
+}
+
+.icon-navbar path{
+  fill: #fff;
+}
+
+.navbar-toggler-icon {
+  background-image: none;
+}
+
+ul .dropdown-menu li {
+  transition: all 0.3s ease-in-out;
+}
+ul .dropdown-menu li :hover{
+  transform: scale(1);
+}
+
+
+.navbar-toggler-icon::before {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" class="bi" fill="white" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>');
+  color: white;
+}

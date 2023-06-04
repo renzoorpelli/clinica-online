@@ -1,0 +1,58 @@
+.lblTitulo{
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.lblMsgError{
+  color: #e64c4c !important;
+  font-size: 15px;
+}
+
+.form-group{
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.form-control{
+  background-color: #dddddd;
+  border: 2px solid transparent;
+  height: 35px;
+  color: #000000;
+}
+
+label{
+  color: #000000 !important;
+}
+
+.form-control :focus {
+  background-color: rgb(168, 168, 168);
+}
+
+button{
+  height: 40px;
+  width: 150px;
+  font-size: 15px;
+  margin-top: 50px;
+}
+
+
+.scrollable-col {
+  overflow-y: auto;
+  max-height: 89vh;
+}
+
+.scrollable-col::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-col::-webkit-scrollbar-track {
+  background: #cacaca;
+}
+
+.scrollable-col::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.scrollable-col::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
