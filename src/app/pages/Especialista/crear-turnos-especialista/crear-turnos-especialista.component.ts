@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
 import { Especialidad } from 'src/app/interfaces/Especialidad';
 import { Especialista } from 'src/app/interfaces/Especialista';
 import { EstadoTurno, Turno } from 'src/app/interfaces/Turno';
