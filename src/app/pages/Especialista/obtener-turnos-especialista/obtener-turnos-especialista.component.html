@@ -1,0 +1,41 @@
+<div class="container">
+  <h4>Turnos Especialista</h4>
+  <p class="lead">En esta sección podrás observar tus turnos</p>
+  <div class="mb-3">
+    <label for="filtroEstado" class="form-label">Filtrar por estado:</label>
+    <select id="filtroEstado" class="form-select" (change)="onFilterShiftsByState(estadoSeleccionado)" [(ngModel)]="estadoSeleccionado" [ngModelOptions]="{standalone:true} ">
+      <option value="" disabled>Todos</option>
+      <option value="0">Libre</option>
+      <option value="1">Pendiente</option>
+      <option value="2">Aceptado</option>
+      <option value="3">Rechazado</option>
+      <option value="4">Cancelado</option>
+      <option value="5">Realizado</option>
+    </select>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Especialidad</th>
+        <th colspan="2">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of getAll()">
+        <td>Sin definir</td>
+          <td>{{item.fechaTurno}}</td>
+          <td>{{this.returnNameShiftState(item.estado!)}}</td>
+          <td>{{item.especialidad}}</td>
+        <td colspan="2">
+          <div class="button-container">
+            <button class="btn btn-outline-success">✅</button>
+            <button class="btn btn-outline-danger">❌</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

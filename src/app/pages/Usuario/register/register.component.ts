@@ -13,10 +13,9 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/Usuario/usuario.service';
 import { Usuario } from 'src/app/interfaces/Usuario';
-import { EspecialidadRepositoryService } from 'src/app/services/Especialidad/especialidad-repository.service';
-import { Especialidad } from 'src/app/interfaces/Especialidad';
 import { Especialista } from 'src/app/interfaces/Especialista';
 import { Paciente } from 'src/app/interfaces/Paciente';
+import { ProfileImageService } from 'src/app/services/File/profile-image.service';
 
 @Component({
   selector: 'app-register',
@@ -30,31 +29,29 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   isDoctor: boolean = true;
 
+  isSelected:boolean = false;
+
   selectedSpecialties: string[] = [];
-
-  specialities$: Observable<Especialidad[]> = new Observable<Especialidad[]>();
-
-  specialities!: Especialidad[];
 
   susbscription?: Subscription;
 
   newSpeciality: string = '';
-
-  typeOfPerson: string = '';
-
-  selectedOptionKV!: string;
+  selectedOptionKV!: string[];
 
   selectedOption!: string;
 
+  captchaValid:boolean = false;
+
+  resultOfCaptchaFromUser!:number;
+
+  images:any[] = [];
+
+   num1 = Math.floor(Math.random() * 10);
+   num2 = Math.floor(Math.random() * 10);
+   result = this.num1 +this.num2;
+
   ngOnInit(): void {
     this.createForm();
-    if (!this.susbscription) {
-      this.susbscription = this._especialidadService
-        .getAll()
-        .subscribe((data) => {
-          this.specialities = data;
-        });
-    }
   }
 
   ngOnDestroy(): void {
@@ -63,8 +60,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(
     private _usuarioService: UsuarioService,
-    private _router: Router,
-    private _especialidadService: EspecialidadRepositoryService
+    private _router: Router
   ) {}
 
   createForm() {
@@ -93,8 +89,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         Validators.email,
       ]),
       password: new FormControl('', [Validators.required]),
-      profileImage1: new FormControl('', [Validators.required]),
-      profileImage2: new FormControl(''),
       especialidad: new FormControl(''),
     });
   }
@@ -147,8 +141,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       dni: $event.dni,
       mail: $event.email,
       password: $event.password,
-      imagenPerfil1: $event.profileImage1,
-      estado: 'ingreso',
+      estado: this.isPatient ? 'admitido' : 'ingreso',
       rol: this.isPatient ? 'paciente' : 'especialista',
     };
 
@@ -158,23 +151,32 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     if (user.rol === 'especialista') {
       especialista = {
-        especialidad: this.selectedOptionKV,
-        estado: 'ingreso',
+        nombre: user.nombre,
+        apellido: user.apellido,
+        edad: user.edad,
+        dni: user.dni,
+        mail: user.mail,
+        password:user.password,
+        especialidad: this.selectedSpecialties,
       };
     } else {
       paciente = {
+        nombre: user.nombre,
+        apellido: user.apellido,
+        edad: user.edad,
+        dni: user.dni,
+        mail: user.mail,
+        password:user.password,
         obraSocial: $event.obraSocial,
-        perfilImagen2: $event.profileImage2,
-        estado: 'ingreso',
+        estado: 'admitido',
       };
     }
 
-    let respuesta = this._usuarioService.register(user, especialista, paciente);
+    let respuesta = this._usuarioService.register(user, especialista, paciente, this.images);
 
     respuesta.then((response) => {
       if (response.valido) {
         this.alertaMensajeSucces(response.mensaje);
-        this._usuarioService.setUserToLocalStorage(user);
         this._router.navigate(['usuario/login']);
       } else {
         this.alertaMensajeError(response.mensaje);
@@ -193,24 +195,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
     };
   }
 
-  addSepeciality() {
-    ///TODO ARREGLAR
-    for (let i = 0; i < this.specialities.length; i++) {
-      if (this.specialities[i].nombre !== this.newSpeciality.trim()) {
-        this.specialities.push({
-          docRef: 'saasasd',
-          nombre: this.newSpeciality,
-        });
-        this.newSpeciality = '';
-        console.log('no existe');
-      } else {
-        continue;
-      }
-    }
-  }
-
-  onSelectionChange() {
-    if (this.typeOfPerson === 'especialista') {
+  onSelectionChange(value:string) {
+    this.isSelected = true;
+    if (value === 'especialista') {
       this.isDoctor = true;
       this.isPatient = false;
     } else {
@@ -220,27 +207,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onOptionSelected() {
-
     let selectedOption = this.selectedOption.split(',');
-
-    let elementToKeyValue = { key: selectedOption[1], value: selectedOption[0]}
-
-    // //const currentValues = this.selectedOption.spl
-    // const index = this.selectedOptionsArray.findIndex(
-    //   (o) => o.key === elementToKeyValue.key
-    // );
-
-    // if (index > -1) {
-    //   // Option already exists, remove it from the array
-    //   this.selectedOptionsArray.splice(index, 1);
-    // } else {
-    //   // Option doesn't exist, add it to the array
-    //   this.selectedOptionsArray.push(elementToKeyValue);
-    // }
-
-    this.selectedOptionKV = JSON.stringify(elementToKeyValue);
-
-    console.log(this.selectedOptionKV);
+    this.selectedOptionKV = selectedOption;
   }
 
   alertaMensajeSucces(mensaje: string): void {
@@ -260,5 +228,36 @@ export class RegisterComponent implements OnInit, OnDestroy {
       icon: 'error',
       confirmButtonText: 'Aceptar',
     });
+  }
+
+
+  addSpeciality(){
+    if(this.newSpeciality && !this.selectedSpecialties.includes(this.newSpeciality)){
+      this.selectedSpecialties.push(this.newSpeciality);
+    }
+  }
+
+  deleteSpeciality(value:string){
+      this.selectedSpecialties.splice(this.selectedSpecialties.indexOf(value), 1);
+      console.log(this.selectedSpecialties);
+  }
+
+  validateCaptcha() {
+    const expectedCaptchaResult = this.result;
+    console.log(this.result)
+    console.log(this.resultOfCaptchaFromUser)
+    if (Number(this.resultOfCaptchaFromUser) === expectedCaptchaResult) {
+      this.captchaValid = true;
+      console.log("entro");
+    } else {
+      this.captchaValid = false;
+      console.log("entro no");
+    }
+  }
+
+  uploadImage($event: any) {
+    const files = Array.from($event.target.files);
+    this.images.push(...files);
+    console.log(this.images)
   }
 }

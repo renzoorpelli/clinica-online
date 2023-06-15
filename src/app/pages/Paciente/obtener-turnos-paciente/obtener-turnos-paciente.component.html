@@ -1,0 +1,29 @@
+<div class="container">
+  <h4>Turnos Paciente</h4>
+  <p class="lead">En esta sección podrás observar tus turnos</p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Especialidad</th>
+        <th>Tipo</th>
+        <th colspan="2">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of getAll()">
+          <td>{{item.fechaTurno}}</td>
+          <td>{{this.returnNameShiftState(item.estado!)}}</td>
+          <td>{{item.especialidad}}</td>
+          <td>{{this.returnNameOfTypeShift(item.tipo!)}}</td>
+        <td colspan="2">
+          <div class="button-container">
+            <button class="btn btn-outline-success">✅</button>
+            <button class="btn btn-outline-danger">❌</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,51 +1,104 @@
-<div class="scrollable-col ">
-  <div class="container">
-    <app-form
-    title="Bienvenido usuari@!"
-    [form]="loginForm"
-    (formSubmitted)="onSubmitEventHandler($event)"
-  >
-    <div class="form-group" [formGroup]="loginForm">
-      <label for="email" class="lblTitulo">Email:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="email"
-        formControlName="email"
-      />
-      <ng-container
-        *ngIf="this.mail?.invalid && (this.mail?.touched || this.mail?.dirty)"
-      >
-        <div
-          *ngIf="this.mail!.errors?.['required'] || this.mail!.errors?.['email']"
+<div class="scrollable-col">
+  <div class="row">
+    <div class="col">
+      <div class="box">
+        <button class="btn btn-outline-secondary"  style="width: 90px;"
+        (click)="InsertCredentials(this.listadoPaciente[0])"
+        ><img
+          src="{{ this.listadoPaciente[0].imagenPerfil1 }}"
+          alt="paciente 1"
+          style="width: 40px; height: 40px;"
+        /></button>
+        <button class="btn btn-outline-secondary"  style="width: 90px;"
+        (click)="InsertCredentials(this.listadoPaciente[1])">
+          <img
+          src="{{ this.listadoPaciente[1].imagenPerfil1 }}"
+          alt="paciente 2"
+          style="width: 40px; height: 40px;"
+        /></button>
+        <button class="btn btn-outline-secondary"  style="width: 90px;"
+        (click)="InsertCredentials(this.listadoPaciente[2])"><img
+          src="{{ this.listadoPaciente[2].imagenPerfil1 }}"
+          alt="paciente 3"
+          style="width: 40px; height: 40px;"
+        /></button>
+        <button class="btn btn-outline-secondary"  style="width: 90px;"
+        (click)="InsertCredentials(this.listadoEspecialista[0])" ><img
+          src="{{ this.listadoEspecialista[0].imagenPerfil1 }}"
+          alt="especialista 1"
+          style="width: 40px; height: 40px;"
+        /></button>
+        <button class="btn btn-outline-secondary"  style="width: 90px;"
+        (click)="InsertCredentials(this.listadoEspecialista[1])">
+          <img
+          src="{{ this.listadoEspecialista[1].imagenPerfil1 }}"
+          alt="especialista 2"
+          style="width: 40px; height: 40px;"
+        /></button>
+        <button
+          class="btn btn-outline-secondary"
+          style="width: 90px;"
+          (click)="InsertCredentials(this.admin)"
         >
-            <label class="text-danger lblMsgError">Email Inválido</label>
-        </div>
-      </ng-container>
+          <img
+            src="{{ this.admin.imagenPerfil1 }}"
+            alt="imagen administrador"
+            style="width: 40px; height: 40px;"
+          />
+        </button>
+      </div>
     </div>
-    <div class="form-group" [formGroup]="loginForm">
-      <label for="password" class="lblTitulo">Password:</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        formControlName="password"
-      />
-      <ng-container
-        *ngIf="
-          this.password?.invalid &&
-          (this.password?.touched || this.password?.dirty)
-        "
+    <div class="col">
+      <app-form
+        title="Bienvenido usuari@!"
+        [form]="loginForm"
+        (formSubmitted)="onSubmitEventHandler($event)"
       >
-        <div *ngIf="this.password!.errors?.['required']">
-            <label class="text-danger lblMsgError">Password no puede estar vacío</label>
+        <div class="form-group" [formGroup]="loginForm">
+          <label for="email" class="lblTitulo">Email:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            formControlName="email"
+          />
+          <ng-container
+            *ngIf="
+              this.mail?.invalid && (this.mail?.touched || this.mail?.dirty)
+            "
+          >
+            <div
+              *ngIf="this.mail!.errors?.['required'] || this.mail!.errors?.['email']"
+            >
+              <label class="text-danger lblMsgError">Email Inválido</label>
+            </div>
+          </ng-container>
         </div>
-      </ng-container>
-      <button class="btn btn-outline-secondary" type="submit">
-        Iniciar Sesión
-      </button>
+        <div class="form-group" [formGroup]="loginForm">
+          <label for="password" class="lblTitulo">Password:</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+          />
+          <ng-container
+            *ngIf="
+              this.password?.invalid &&
+              (this.password?.touched || this.password?.dirty)
+            "
+          >
+            <div *ngIf="this.password!.errors?.['required']">
+              <label class="text-danger lblMsgError"
+                >Password no puede estar vacío</label
+              >
+            </div>
+          </ng-container>
+          <button class="btn btn-outline-secondary" type="submit">
+            Iniciar Sesión
+          </button>
+        </div>
+      </app-form>
     </div>
-  </app-form>
   </div>
 </div>
-

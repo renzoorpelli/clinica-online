@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Paciente } from 'src/app/interfaces/Paciente';
 import { Usuario } from 'src/app/interfaces/Usuario';
+import { UsuarioRepositoryService } from 'src/app/services/Usuario/usuario-repository.service';
 import { UsuarioService } from 'src/app/services/Usuario/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -10,15 +13,34 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit, OnDestroy{
 
   loginForm!:FormGroup;
+  private _subscription!: Subscription;
+  listadoUsuarios!:Usuario[];
+  admin!:Usuario;
+  listadoPaciente!:Usuario[];
+  listadoEspecialista!:Usuario[];
+
 
   ngOnInit(): void {
+    if(!this._subscription){
+      this._subscription = this.usuarioRepositoryService.getAll().subscribe(data => {
+        this.listadoUsuarios = data;
+
+        this.admin = this.listadoUsuarios.filter(usr => usr.rol === "admin")[0];
+        this.listadoPaciente = this.listadoUsuarios.filter(usr => usr.rol === "paciente");
+        this.listadoEspecialista =this.listadoUsuarios.filter(usr => usr.rol === "especialista")
+      })
+    }
       this.createForm();
   }
 
-  constructor(private _usuarioService:UsuarioService, private _router: Router){}
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+  }
+
+  constructor(private _usuarioService:UsuarioService, private _router: Router, private usuarioRepositoryService:UsuarioRepositoryService){}
 
   createForm(){
     this.loginForm = new FormGroup({
@@ -68,4 +90,8 @@ export class LoginComponent implements OnInit{
     )
    }
 
+   InsertCredentials(user:Usuario){
+    this.mail?.setValue(user.mail)
+    this.password?.setValue(user.password)
+   }
 }

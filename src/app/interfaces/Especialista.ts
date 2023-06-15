@@ -1,14 +1,19 @@
+import { Especialidad } from "./Especialidad";
+import { Turno } from "./Turno";
+
 export interface Especialista {
-  docRefUsuario?: string;
+  idUsuarioDocRef?: string;
   docRefEspecialista?:string;
   idUsuarioUid?: string;
   nombre?: string;
   apellido?: string;
   edad?: number;
   dni?: string;
-  especialidad?: string | string[];
+  especialidad?: string[];
+  especialidades?:Especialidad[];
   mail?: string;
   password?: string;
-  perfilImagen?: string;
-  estado: string;
+  imagenPerfil1?: string;
+  estado?: string;
+  turnos?: Turno[];
 }

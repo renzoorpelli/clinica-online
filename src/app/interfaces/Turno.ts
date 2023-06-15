@@ -1,16 +1,16 @@
 export interface Turno {
-docRef:string;
-docRefConsultorio:string | undefined;
-docRefEspecialdiad:string | undefined;
-docRefPaciente:string |undefined;
-docRefProfesional:string | undefined;
-estado:EstadoTurno;
-fechaTurno: Date;
-tipo:Tratamiento;
+idTurnoDocRef?:string;
+especialidad?:string | undefined;
+docRefPaciente?:string |undefined;
+docRefEspecialista?:string | undefined;
+estado?:EstadoTurno;
+fechaTurno?: string;
+tipo?:Tratamiento;
 }
 
 
-enum EstadoTurno{
+export enum EstadoTurno{
+  Libre,
   Pendiente,
   Aceptado,
   Rechazado,
@@ -18,7 +18,7 @@ enum EstadoTurno{
   Realizado
 }
 
-enum Tratamiento{
+export enum Tratamiento{
   Tratamiento,
   Consulta
 }

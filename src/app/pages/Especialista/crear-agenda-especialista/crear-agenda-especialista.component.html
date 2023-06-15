@@ -1,0 +1,29 @@
+<div class="container">
+  <form [formGroup]="agendaForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="especialidad" class="lead">Seleccione su especialidad:</label>
+      <select name="especialidad" id="" class="form-control" [(ngModel)]="especialidadSeleccionada" [ngModelOptions]="{standalone:true}">
+        <option *ngFor="let item of specialistFromLocalStorage.especialidad" [value]="item">{{ item }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="dia" class="lead">Día</label>
+      <select name="especialidad" id="" class="form-control" formControlName="dia">
+        <option *ngFor="let item of filterDaysAvailable()" [value]="item">{{ item }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="horaInicio" class="lead">Hora de inicio</label>
+      <input type="time" id="horaInicio" formControlName="horaInicio" class="form-control" formControlName="horaInicio">
+    </div>
+    <div class="form-group">
+      <label for="horaFin" class="lead">Hora de fin</label>
+      <input type="time" id="horaFin" formControlName="horaFin" class="form-control" formControlName="horaFin">
+    </div>
+    <div class="mt-3">
+      <button type="submit" class="btn btn-outline-secondary" [disabled]="!agendaForm.valid">Crear agenda</button>
+      <button type="submit" class="btn btn-outline-warning mx-1" routerLink="/especialista/agenda/obtener">Volver</button>
+
+    </div>
+  </form>
+</div>

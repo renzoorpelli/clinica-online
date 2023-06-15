@@ -7,16 +7,18 @@ import {
   DocumentReference,
   DocumentSnapshot,
   Firestore,
+  arrayUnion,
   collectionData,
   deleteDoc,
   doc,
   getDoc,
   setDoc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
 import { Usuario } from 'src/app/interfaces/Usuario';
 import { Paciente } from 'src/app/interfaces/Paciente';
-
+import { Turno } from 'src/app/interfaces/Turno';
 
 @Injectable({
   providedIn: 'root',
@@ -28,28 +30,28 @@ export class PacienteRepositoryService implements Repository<Paciente> {
 
   constructor(private _firestore: Firestore) {
     this.listadoPacientes = collection(this._firestore, 'pacientes');
-    this.listadoPacientes$ = collectionData(this.listadoPacientes) as Observable<
-    Paciente[]
-    >;
+    this.listadoPacientes$ = collectionData(
+      this.listadoPacientes
+    ) as Observable<Paciente[]>;
   }
   getAll(): Observable<Paciente[]> {
     return this.listadoPacientes$;
   }
 
-  create(entity: Paciente, uid:string): string {
+  create(entity: Paciente, uid: string): string {
     if (this.listadoPacientes) {
       // obtengo referencia al id del doucmento para asignarlo a un campo del actor.
       let docRef: DocumentReference<DocumentData> = doc(this.listadoPacientes);
       const newItem: any = {
         ...entity,
         docRefPaciente: docRef.id,
-        idUsuarioUid: uid
+        idUsuarioUid: uid,
       };
 
       setDoc(docRef, newItem);
       return docRef.id;
     }
-    return "";
+    return '';
   }
 
   update(docRef: string, ...args: unknown[]): boolean {
@@ -57,12 +59,30 @@ export class PacienteRepositoryService implements Repository<Paciente> {
   }
   delete(docRef: string): boolean {
     // el guid que genera el doc
-    const documentReference = doc(this.listadoPacientes, "pacientes", docRef);
+    const documentReference = doc(this.listadoPacientes, 'pacientes', docRef);
 
-    if(!documentReference){
+    if (!documentReference) {
       deleteDoc(documentReference);
       return true;
     }
     return false;
   }
+
+  async getPacienteByDocRef(pacientDocRef: string): Promise<DocumentSnapshot> {
+    const documentReference = doc(this.listadoPacientes, pacientDocRef);
+    return await getDoc(documentReference);
+  }
+
+  updateShiftAttriubte(turno:Turno, docRefPaciente:string ){
+    try {
+      const documentReference = doc(this.listadoPacientes, docRefPaciente);
+      updateDoc(documentReference, {
+        turnos: arrayUnion(turno)
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    return false;
+  }
+
 }

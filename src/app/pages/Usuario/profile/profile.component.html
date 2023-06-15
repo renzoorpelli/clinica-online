@@ -5,6 +5,9 @@
     >
       <button class="btn btn-secondary">
         <img src="{{this.userFromLocalStorage?.imagenPerfil1}}" height="100" width="100" />
+        <ng-container *ngIf="userFromLocalStorage!.rol === 'paciente'">
+          <img src="{{this.userProfileLocalStorage?.imagenPerfil2}}" height="100" width="100" />
+        </ng-container>
       </button>
       <span class="name mt-3">{{userFromLocalStorage?.rol}}</span>
       <span class="idd">@{{userFromLocalStorage!.nombre.toLowerCase().replace(" ", "")}}</span>
@@ -20,6 +23,12 @@
       <div class="d-flex mt-2">
         <button class="btn btn-outline-secondary" (click)="logOut()">Cerrar sesión</button>
       </div>
+      <ng-container *ngIf="userFromLocalStorage!.rol === 'especialista'">
+        <div class="d-flex mt-2">
+          <button class="btn btn-outline-secondary" routerLink="/especialista/agenda">Mi Agenda</button>
+        </div>
+      </ng-container>
+
       <div class="text mt-3">
         <span
           >{{userFromLocalStorage?.mail}}
