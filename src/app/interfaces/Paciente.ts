@@ -1,5 +1,7 @@
+import { Turno } from "./Turno";
+
 export interface Paciente {
-  docRefUsuario?: string;
+  idUsuarioDocRef?: string;
   docRefPaciente?:string;
   idUsuarioUid?: string;
   nombre?: string;
@@ -9,7 +11,9 @@ export interface Paciente {
   obraSocial: string;
   mail?: string;
   password?: string;
-  perfilImagen1?: string;
-  perfilImagen2: string;
+  imagenPerfil1?: string;
+  imagenPerfil2?: string;
   estado:string;
+  turnos?:Turno[];
+  historiaClinica?:any;
 }

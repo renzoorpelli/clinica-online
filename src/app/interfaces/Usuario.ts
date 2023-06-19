@@ -7,7 +7,7 @@ export interface Usuario {
   dni: string;
   mail: string;
   password: string;
-  imagenPerfil1: string;
+  imagenPerfil1?: string;
   rol:string;
   estado: string;
 }

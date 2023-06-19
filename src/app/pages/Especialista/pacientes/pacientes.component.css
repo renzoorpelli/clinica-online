@@ -1,0 +1,11 @@
+.container{
+  margin-top: 50px;
+}
+
+.table-container {
+  border: 1px solid #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  margin-top: 10px;
+}

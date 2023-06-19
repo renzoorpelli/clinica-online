@@ -5,6 +5,7 @@
   left: 0;
   width: 100%;
   box-shadow: -7px 14px 15px -5px rgb(161, 161, 161);
+  z-index: 1;
 }
 
 .navbar a {

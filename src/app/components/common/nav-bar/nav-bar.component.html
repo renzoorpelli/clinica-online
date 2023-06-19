@@ -161,9 +161,12 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" routerLink="usuario/admin">Admisión Especialistas</a>
+                <a class="dropdown-item" routerLink="admin">Admisión Especialistas</a>
               </li>
               <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" routerLink="admin/gestion">Gestión Usuarios</a>
+              </li>
               <!-- <li>
                 <a class="dropdown-item" routerLink="juegos/mayoromenor"
                   >Mayor o menor</a
@@ -180,6 +183,58 @@
             </ul>
           </li>
 
+        </ng-container>
+        <ng-container *ngIf="this.isLoggedInAndSpecialist()">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+             Mis Turnos
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" routerLink="especialista/turnos">Mis Turnos</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" routerLink="especialista/agenda/obtener">Mi Agenda</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" routerLink="especialista/pacientes">Mis Pacientes</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" routerLink="especialista/crear">Crear Turnos</a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="this.isLoggedInAndPacient()">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+             Mis Turnos
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" routerLink="paciente/turnos">Mis Turnos</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" routerLink="paciente/crear">Sacar Turno</a>
+              </li>
+            </ul>
+          </li>
         </ng-container>
       </ul>
       <!-- aca esta la seccion de usuario-->

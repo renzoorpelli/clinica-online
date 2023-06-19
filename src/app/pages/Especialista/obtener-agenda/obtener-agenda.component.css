@@ -1,0 +1,17 @@
+.container{
+  margin-top: 50px;
+}
+
+.card-body{
+  text-align: center;
+  align-content: center;
+}
+
+.card-header{
+  text-align: center;
+  align-content: center;
+}
+
+.card{
+  width: 200px;
+}

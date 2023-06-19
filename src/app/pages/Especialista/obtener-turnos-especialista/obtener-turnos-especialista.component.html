@@ -1,0 +1,70 @@
+<div class="container">
+  <h4>Turnos Especialista</h4>
+  <p class="lead">En esta sección podrás observar tus turnos</p>
+  <div class="mb-3">
+    <!-- <label for="filtroEstado" class="form-label">Filtrar por estado:</label>
+    <select id="filtroEstado" class="form-select" (change)="onFilterShiftsByState(estadoSeleccionado)" [(ngModel)]="estadoSeleccionado" [ngModelOptions]="{standalone:true} ">
+      <option value="" disabled>Todos</option>
+      <option value="0">Libre</option>
+      <option value="1">Pendiente</option>
+      <option value="2">Aceptado</option>
+      <option value="3">Rechazado</option>
+      <option value="4">Cancelado</option>
+      <option value="5">Realizado</option>
+    </select> -->
+    <label for="filtroEstado" class="form-label">Filtrar por semana:</label>
+    <select id="filtroEstado" class="form-select" (change)="onFilterDateChange(fechaSeleccionada)" [(ngModel)]="fechaSeleccionada" [ngModelOptions]="{standalone:true} ">
+    <option *ngFor="let item of getDatesOfShifts()" [value]="item">{{item}}</option>
+    </select>
+  </div>
+  <div class="table-container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Especialidad</th>
+        <th colspan="2">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of getAll()">
+
+        <td *ngIf="item.estado !== 0">Asignado</td>
+        <td *ngIf="item.estado === 0">Sin Definir</td>
+          <td>{{item.fechaTurno! | formatDate : "yyyy-MM-dd h:mm a"}}</td>
+          <td>{{this.returnNameShiftState(item.estado!)}}</td>
+          <td>{{item.especialidad!.toUpperCase()}}</td>
+        <td colspan="2" *ngIf="item.estado === 0">
+          <div class="button-container">
+            <button class="btn btn-outline-success" disabled>No disponible</button>
+          </div>
+        </td>
+        <td colspan="2" *ngIf="item.estado === 1">
+          <div class="button-container">
+            <input type="text" class="form-control" aria-label="" placeholder="escribe la razón por la cual rechazas el turno" aria-describedby="button-addon2" *ngIf="displayInput && item.idTurnoDocRef === selectedShift!.idTurnoDocRef" [(ngModel)]="resenia" [ngModelOptions]="{standalone:true}">
+            <div *ngIf="!this.displayInput">
+              <button class="btn btn-outline-success mt-1" (click)="onConfirmShift(item)">Aceptar Turno</button>
+            </div>
+            <button class="btn btn-outline-danger mt-1" (click)="onRefuseShift(item)">Cancelar</button>
+            <div *ngIf="this.displayInput">
+              <button class="btn btn-outline-success mt-1" *ngIf="displayInput && item.idTurnoDocRef === selectedShift!.idTurnoDocRef" (click)="onConfirmCancelShift(item)">Confirmar</button>
+            </div>
+      </div>
+        </td>
+        <td colspan="2" *ngIf="item.estado === 2">
+          <div class="button-container">
+            <button class="btn btn-outline-success" (click)="onRealiceShift(item)">Realizar</button>
+          </div>
+        </td>
+        <td colspan="2" *ngIf="item.estado === 5">
+          <div class="button-container">
+            <button class="btn btn-outline-success" (click)="onReviewShift(item)">Ver reseña</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

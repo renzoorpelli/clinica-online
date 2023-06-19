@@ -1,0 +1,147 @@
+<div class="containerCustom">
+  <div class="card">
+    <div class="card-header">
+      <h4>Crear Turno:</h4>
+    </div>
+    <div class="card-body">
+      <ng-container *ngIf="!this.usuarioSeleccionado">
+        <hr />
+        <div class="row">
+          <div class="col center-content">
+            <input
+              type="checkbox"
+              id="especialistasCheckbox"
+              [checked]="isEspecialistasSelected"
+              (change)="handleChange('especialistas')"
+            />
+            <label for="especialistasCheckbox">Especialistas</label>
+
+            <input
+              type="checkbox"
+              id="especialidadCheckbox"
+              [checked]="isEspecialidadSelected"
+              (change)="handleChange('especialidad')"
+            />
+            <label for="especialidadCheckbox">Especialidad</label>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <ng-container *ngIf="this.isEspecialidadSelected">
+            <div class="col center-content">
+              <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Ingresa una especialdiad"
+              />
+            </div>
+          </ng-container>
+          <ng-container *ngIf="this.isEspecialistasSelected">
+            <div class="col center-content">
+              <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Ingresa el nombre/apellido del especialista"
+              />
+            </div>
+          </ng-container>
+          <div class="container">
+            <h4>Selecciona al especialista</h4>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngIf="
+                    !this.isEspecialidadSelected &&
+                    !this.isEspecialistasSelected
+                  "
+                >
+                  <tr
+                    *ngFor="
+                      let item of this.listadoUsuarios | filtrarEspecialistas
+                    "
+                    (click)="onSelectedUsuer(item)"
+                  >
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.apellido }}</td>
+                  </tr>
+                </ng-container>
+
+                <ng-container *ngIf="this.isEspecialistasSelected">
+                  <tr
+                    *ngFor="
+                      let item of this.listadoUsuarios
+                        | especialistasNombre : 'juan'
+                    "
+                    (click)="onSelectedUsuer(item)"
+                  >
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.apellido }}</td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="this.isEspecialidadSelected">
+                  <tr
+                    *ngFor="
+                      let item of this.listadoUsuarios
+                        | especialistasEspecialidad
+                          : this.listadoEspecialista
+                          : 'Doctor'
+                    "
+                    (click)="onSelectedUsuer(item)"
+                  >
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.apellido }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="this.usuarioSeleccionado">
+        <app-form
+          title="Turnos"
+          [form]="turnoForm"
+          (formSubmitted)="onSubmitEventHandler($event)"
+        >
+          <div class="form-group">
+            <label for="date">Selecciona el dia del turno</label>
+            <select
+              name="date"
+              id=""
+              class="form-control"
+              formControlName="fechaTurno"
+            >
+              <option
+                *ngFor="
+                  let item of listaTurnosEspecialista
+                    | turnoDisponiblePorEspecialista
+                      : this.usuarioSeleccionado!.idUsuarioDocRef!
+                "
+                value="item.fechaTurno"
+              ></option>
+            </select>
+            <ng-container
+              *ngIf="
+                this.fechaTurno?.invalid && (this.fechaTurno?.touched || this.fechaTurno?.dirty)
+              "
+            >
+              <div
+                *ngIf="this.fechaTurno!.errors?.['required']"
+              >
+                <label class="text-danger lblMsgError">Seleccione una fecha</label>
+              </div>
+            </ng-container>
+          </div>
+        </app-form>
+      </ng-container>
+    </div>
+  </div>
+</div>

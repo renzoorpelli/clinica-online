@@ -1,0 +1,26 @@
+<div class="container">
+  <h4>Mi Agenda: Especialista</h4>
+  <p class="lead">Bienvenid@ Especialista, aquí podra verificar su agenda y ver en que días atienda cada especialidad.</p>
+  <button class="btn btn-outline-secondary" routerLink="/especialista/agenda/crear">Crear Agenda</button>
+</div>
+<section class="container">
+  <ng-container *ngIf="selectedSpecialist && selectedSpecialist.especialidades;else sinEspecialidades">
+    <label class="lead">El especialista atiende las siguientes especialidades en los días:</label>
+    <div class="row mt-3">
+      <div class="col-12 col-sm-6 col-md-4" *ngFor="let item of selectedSpecialist.especialidades">
+        <div class="card mb-3">
+          <div class="card-header"><strong> ESPECIALIDAD:</strong> {{item.nombre.toUpperCase()}}</div>
+          <div class="card-body">
+            <p><strong> Día:</strong> {{item.agenda.dia}}</p>
+            <p><strong>Desde:</strong> {{item.agenda.desde}}</p>
+            <p><strong>Hasta:</strong> {{item.agenda.hasta}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #sinEspecialidades>
+    <hr>
+    <p class="lead">Aun no tienes especialidades cargadas</p>
+  </ng-template>
+</section>

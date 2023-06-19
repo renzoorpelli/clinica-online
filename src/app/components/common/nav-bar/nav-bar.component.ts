@@ -14,4 +14,16 @@ export class NavBarComponent{
   isLoggedInAndAdmin():boolean{
     return this._usuarioService.isLoggedInAndAdmin();
   }
+
+  isLoggedIn():boolean{
+    return this._usuarioService.isLoggedIn();
+  }
+
+  isLoggedInAndSpecialist():boolean{
+    return this._usuarioService.isLoggedAndEspecialista();
+  }
+
+  isLoggedInAndPacient():boolean{
+    return this._usuarioService.isLoggedAndPaciente();
+  }
 }

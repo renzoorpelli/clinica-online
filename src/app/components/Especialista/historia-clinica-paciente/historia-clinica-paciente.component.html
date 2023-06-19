@@ -1,0 +1,102 @@
+<div class="container">
+
+<form [formGroup]="formHistoriaClinica" (ngSubmit)="onSubmitEventHandler()">
+  <div class="row">
+    <div class="col">
+      <label for="altura">Altura</label>
+      <div class="form-group mb-3 mt-2">
+        <input type="number" placeholder="Ingrese la altura en CM" class="form-control" formControlName="altura" />
+        <ng-container
+        *ngIf="
+          this.formHistoriaClinica.get('altura')!.invalid &&
+          (this.formHistoriaClinica.get('altura')?.touched || this.formHistoriaClinica.get('altura')?.dirty)
+        "
+      >
+        <div *ngIf="this.formHistoriaClinica.get('altura')!.errors?.['required'] || this.formHistoriaClinica.get('altura')!.errors?.['min']">
+          <label class="text-danger lblMsgError"
+            >Altura inválida</label
+          >
+        </div>
+      </ng-container>
+      </div>
+    </div>
+    <div class="col">
+      <label for="peso">Peso</label>
+      <div class="form-group mb-3 mt-2">
+        <input type="number" min="50" placeholder="Ingrese el peso en KG" class="form-control" formControlName="peso" />
+        <ng-container
+        *ngIf="
+          this.formHistoriaClinica.get('peso')!.invalid &&
+          (this.formHistoriaClinica.get('peso')?.touched || this.formHistoriaClinica.get('peso')?.dirty)
+        "
+      >
+        <div *ngIf="this.formHistoriaClinica.get('peso')!.errors?.['required'] || this.formHistoriaClinica.get('peso')!.errors?.['min']">
+          <label class="text-danger lblMsgError"
+            >peso inválido</label
+          >
+        </div>
+      </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="temperatura">Temperatura</label>
+      <div class="form-group mb-3 mt-2">
+        <input type="number" min="36" max="40" placeholder="Ingrese la temperatura en C°" class="form-control" formControlName="temperatura" />
+        <ng-container
+        *ngIf="
+          this.formHistoriaClinica.get('temperatura')!.invalid &&
+          (this.formHistoriaClinica.get('temperatura')?.touched || this.formHistoriaClinica.get('temperatura')?.dirty)
+        "
+      >
+        <div *ngIf="this.formHistoriaClinica.get('temperatura')!.errors?.['required'] || this.formHistoriaClinica.get('temperatura')!.errors?.['min']">
+          <label class="text-danger lblMsgError"
+            >Temperatura inválida</label
+          >
+        </div>
+      </ng-container>
+      </div>
+    </div>
+    <div class="col">
+      <label for="presion">Presión</label>
+      <div class="form-group mb-3 mt-2">
+        <input type="number" placeholder="Ingrese la presión" class="form-control" formControlName="presion" />
+        <ng-container
+        *ngIf="
+          this.formHistoriaClinica.get('presion')!.invalid &&
+          (this.formHistoriaClinica.get('presion')?.touched || this.formHistoriaClinica.get('presion')?.dirty)
+        "
+      >
+        <div *ngIf="this.formHistoriaClinica.get('presion')!.errors?.['required'] || this.formHistoriaClinica.get('presion')!.errors?.['min']">
+          <label class="text-danger lblMsgError"
+            >peso inválido</label
+          >
+        </div>
+      </ng-container>
+      </div>
+    </div>
+  </div>
+  <div formArrayName="keyValuePairs">
+    <div *ngFor="let pair of getKeyValuePairs.controls; index as i" [formGroupName]="i">
+      <div class="row">
+        <div class="col">
+          <label for="key">Dato Clave</label>
+          <div class="form-group mb-3 mt-2">
+            <input type="text" placeholder="dato clave" class="form-control" formControlName="key" />
+          </div>
+        </div>
+        <div class="col">
+          <label for="value">Dato Valor</label>
+          <div class="form-group mb-3 mt-2">
+            <input type="text" placeholder="dato valor" class="form-control" formControlName="value" />
+          </div>
+          <button (click)="removeKeyValuePair(i); $event.stopPropagation()" class="btn btn-outline-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+    <button (click)="addKeyValuePair(); $event.stopPropagation()" class="btn btn-outline-secondary">Agregar Datos Clave</button>
+  </div>
+  <button type="submit" class="btn btn-outline-secondary mt-2">Guardar</button>
+</form>
+</div>

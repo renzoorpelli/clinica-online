@@ -1,0 +1,31 @@
+.container{
+  margin-top: 50px;
+  overflow: auto;
+}
+.card-custom {
+  height: 220px;
+  width: 230px;
+}
+
+.card-custom-especialist{
+  height: 150px;
+  width: 150px;
+}
+
+.card-custom-especialist img {
+  height: 100px;
+  width: 100px;
+  object-fit: fill;
+}
+
+
+.card-custom img {
+  height: 100px;
+  width: 100px;
+  object-fit: fill;
+}
+
+
+form{
+  padding-bottom: 50px;
+}
