@@ -2,7 +2,7 @@
   <h4>Turnos Especialista</h4>
   <p class="lead">En esta sección podrás observar tus turnos</p>
   <div class="mb-3">
-    <label for="filtroEstado" class="form-label">Filtrar por estado:</label>
+    <!-- <label for="filtroEstado" class="form-label">Filtrar por estado:</label>
     <select id="filtroEstado" class="form-select" (change)="onFilterShiftsByState(estadoSeleccionado)" [(ngModel)]="estadoSeleccionado" [ngModelOptions]="{standalone:true} ">
       <option value="" disabled>Todos</option>
       <option value="0">Libre</option>
@@ -11,8 +11,13 @@
       <option value="3">Rechazado</option>
       <option value="4">Cancelado</option>
       <option value="5">Realizado</option>
+    </select> -->
+    <label for="filtroEstado" class="form-label">Filtrar por semana:</label>
+    <select id="filtroEstado" class="form-select" (change)="onFilterDateChange(fechaSeleccionada)" [(ngModel)]="fechaSeleccionada" [ngModelOptions]="{standalone:true} ">
+    <option *ngFor="let item of getDatesOfShifts()" [value]="item">{{item}}</option>
     </select>
   </div>
+  <div class="table-container">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -61,4 +66,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>

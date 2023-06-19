@@ -18,7 +18,6 @@ import { HistoriaClinicaPacienteComponent } from 'src/app/components/Especialist
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ObtenerhistoriaClinicaPacienteComponent } from 'src/app/components/Especialista/obtenerhistoria-clinica-paciente/obtenerhistoria-clinica-paciente.component';
 
-
 @Component({
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
@@ -30,6 +29,7 @@ export class PacientesComponent implements OnInit {
   pacientShiftRealized!: Turno[];
   pacientFiltered!: Paciente[];
   formHistoriaClinica!: FormGroup;
+  _pacientList!: Paciente[];
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -51,35 +51,50 @@ export class PacientesComponent implements OnInit {
       });
 
     this._pacientSerice.getAll().subscribe((data) => {
-      this.pacientFiltered = this._specialisService.getPacientsFromFinishShifts(
-        this.specialistUpdated.turnos!,
-        data
-      );
+      this._pacientList = data;
     });
+
+    setTimeout(() => {
+      this.loadDataPacientFiltered();
+    }, 2000);
   }
 
-
-  openGenerateClinicHistory(pacient:Paciente){
-    const modalRef = this._modalService.open(HistoriaClinicaPacienteComponent, {centered: true});
+  openGenerateClinicHistory(pacient: Paciente) {
+    const modalRef = this._modalService.open(HistoriaClinicaPacienteComponent, {
+      centered: true,
+    });
 
     modalRef.componentInstance.pacientFromComponent = pacient;
 
-    modalRef.result.then(result => {
-      console.log(result)
-    }).catch(err => {
-      console.log(err);
-    })
+    modalRef.result
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  openViewClinicHistory(clinicHistory:any){
-    const modalRef = this._modalService.open(ObtenerhistoriaClinicaPacienteComponent, {centered: true});
+  loadDataPacientFiltered() {
+    this.pacientFiltered = this._specialisService.getPacientsFromFinishShifts(
+      this.specialistUpdated.turnos!,
+      this._pacientList
+    );
+  }
+  openViewClinicHistory(clinicHistory: any) {
+    const modalRef = this._modalService.open(
+      ObtenerhistoriaClinicaPacienteComponent,
+      { centered: true }
+    );
 
     modalRef.componentInstance.data = clinicHistory;
 
-    modalRef.result.then(result => {
-      console.log(result)
-    }).catch(err => {
-      console.log(err);
-    })
+    modalRef.result
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
