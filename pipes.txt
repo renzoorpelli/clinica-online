@@ -16,3 +16,33 @@ implementa PipeTransform
 
 
 transfor(value: uknown, ... args[]) => recibe el valor por parametro, MAS argumentos opcionales.
+
+
+
+
+
+directivas::
+
+
+ng generate directive highlight
+
+
+
+@Directive({
+selector: '[appHigh1ight] i,
+export class HighlightDirective {
+
+
+constructor(private element: ElementRef) { }
+
+
+@HostListener( 'mouseenter') onMouseEnter(){
+
+this style. backgroundC010r = 'red
+
+}
+
+
+@HostListener( 'mouseleave') onMouseLeave()
+this . element . nativeE1ement. style. backgroundC010r = ''
+}
