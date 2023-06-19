@@ -145,8 +145,6 @@ export class EspecialistaRepositoryService implements Repository<Especialista> {
       if (index !== -1) {
         especialistFromFirebase.turnos![index] = shiftModified;
 
-        // Ahora debes actualizar el especialista en Firebase
-
         const specialistRef = doc(this.listadoEspecialistas, docRefEspecialista);
         updateDoc(specialistRef, {turnos: especialistFromFirebase.turnos});
       } else {

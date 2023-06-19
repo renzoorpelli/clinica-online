@@ -7,6 +7,7 @@ import { CrearTurnosEspecialistaComponent } from 'src/app/pages/Especialista/cre
 import { EspecialistaMainComponent } from 'src/app/pages/Especialista/especialista-main/especialista-main.component';
 import { ObtenerAgendaComponent } from 'src/app/pages/Especialista/obtener-agenda/obtener-agenda.component';
 import { ObtenerTurnosEspecialistaComponent } from 'src/app/pages/Especialista/obtener-turnos-especialista/obtener-turnos-especialista.component';
+import { PacientesComponent } from 'src/app/pages/Especialista/pacientes/pacientes.component';
 
 const routes: Routes = [
   {path: '', component: EspecialistaMainComponent, children: [
@@ -15,7 +16,8 @@ const routes: Routes = [
     {path: 'agenda', component: AgendaMainComponent, children: [
       {path: 'crear', component: CrearAgendaEspecialistaComponent},
       {path: 'obtener', component: ObtenerAgendaComponent}
-    ]}
+    ]},
+    {path: "pacientes", component: PacientesComponent}
   ], canActivate: [EspecialistaAuthGuardService]},
 
 

@@ -15,4 +15,5 @@ export interface Paciente {
   imagenPerfil2?: string;
   estado:string;
   turnos?:Turno[];
+  historiaClinica?:any;
 }

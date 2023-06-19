@@ -1,0 +1,66 @@
+<router-outlet></router-outlet>
+<div class="container">
+  <div class="mb-3">
+    <button class="btn btn-outline-secondary" (click)="generateExcelUsers(this.usersCommonList)">Generar Excel Usuarios</button>
+  </div>
+  <div class="row">
+    <div class="col table-container">
+      <h4>Especialistas</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Perfil</th>
+            <th>Mail</th>
+            <th colspan="2">Acción</th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr *ngFor="let item of this.specialistList">
+                <td>{{item.nombre}}</td>
+                <td>{{item.apellido}}</td>
+                <td>{{item.dni}}</td>
+                <td><a href="{{item.imagenPerfil1}}" target="_blank" rel="noopener noreferrer">Ver Foto</a></td>
+                <td>{{item.mail}}</td>
+                <td colspan="2">
+                  No Disponible
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col table-container">
+      <h4>Pacientes</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Perfil</th>
+            <th>Mail</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.pacientList">
+            <td>{{item.nombre}}</td>
+            <td>{{item.apellido}}</td>
+            <td>{{item.dni}}</td>
+            <td><a href="{{item.imagenPerfil1}}" target="_blank" rel="noopener noreferrer">Ver Foto</a></td>
+            <td>{{item.mail}}</td>
+            <td>
+              <div class="button-container">
+                <button class="btn btn-outline-secondary" *ngIf="item.historiaClinica" (click)="onReviewClinicHistory(item.historiaClinica)">Ver Historia Clinica</button>
+                <button class="btn btn-outline-secondary" *ngIf="!item.historiaClinica" disabled>No disponible</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

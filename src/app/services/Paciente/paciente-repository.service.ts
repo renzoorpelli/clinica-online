@@ -85,4 +85,37 @@ export class PacienteRepositoryService implements Repository<Paciente> {
     return false;
   }
 
+  updateShiftStatusPacient(shiftModified:Turno, docRefPacient:string){
+
+    const pacient = this.getPacienteByDocRef(docRefPacient);
+
+    pacient.then(data => {
+      let especialistFromFirebase = data.data() as Paciente;
+
+      const index = especialistFromFirebase.turnos!.findIndex(t => t.idTurnoDocRef === shiftModified.idTurnoDocRef);
+
+      if (index !== -1) {
+        especialistFromFirebase.turnos![index] = shiftModified;
+
+        const pacientRef = doc(this.listadoPacientes, docRefPacient);
+        updateDoc(pacientRef, {turnos: especialistFromFirebase.turnos});
+      } else {
+        console.log("No se encontró el turno");
+      }
+    });
+  }
+
+
+  addClinicHistoryToPatient(pacient:Paciente, clinicHistory:any){
+    try {
+      const pacientRef = doc(this.listadoPacientes, pacient.docRefPaciente!);
+
+      updateDoc(pacientRef, {
+        historiaClinica: clinicHistory
+      })
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }

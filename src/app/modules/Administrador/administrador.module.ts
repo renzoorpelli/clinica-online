@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormModule } from '../Common/form.module';
 import { EspecialistaPendientePipe } from 'src/app/pipes/especialista/especialista-pendiente.pipe';
 import { PacientePendientePipe } from 'src/app/pipes/paciente/paciente-pendiente.pipe';
+import { GestionUsuariosComponent } from 'src/app/pages/Administrador/gestion-usuarios/gestion-usuarios.component';
+import { ExcelService } from 'src/app/services/File/excel.service';
 
 
 @NgModule({
@@ -16,6 +18,7 @@ import { PacientePendientePipe } from 'src/app/pipes/paciente/paciente-pendiente
     AdminAltaComponent,
     EspecialistaPendientePipe,
     PacientePendientePipe,
+    GestionUsuariosComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +27,9 @@ import { PacientePendientePipe } from 'src/app/pipes/paciente/paciente-pendiente
     ReactiveFormsModule,
     CommonModule,
     AdministradorRoutingModule
+  ],
+  providers:[
+    ExcelService
   ]
 })
 export class AdministradorModule { }

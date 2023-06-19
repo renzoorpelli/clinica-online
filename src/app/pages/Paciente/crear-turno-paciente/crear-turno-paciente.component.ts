@@ -27,6 +27,21 @@ export class CrearTurnoPacienteComponent implements OnInit, OnDestroy{
   selectedTypeOfShift!:string;
   TYPE_SHIFT:string[] = ["Consulta", "Tratamiento"];
 
+  specialistSelected:boolean = false;
+  specialityShowSelected:boolean = false;
+  shiftSelected:boolean=false;
+
+
+  SPECIALITIES: {key:string, value:string}[]= [
+
+    {key:"doctor", value: "https://st4.depositphotos.com/1325771/39154/i/600/depositphotos_391545206-stock-photo-happy-male-medical-doctor-portrait.jpg"},
+    {key:"pediatra", value: "https://static.eldiario.es/clip/4571af46-875a-47bd-80d6-445b11120382_16-9-discover-aspect-ratio_default_1058469.webp"},
+    {key:"clinica", value: "https://www.hpc.org.ar/wp-content/uploads/Medico-Clinico.jpg"},
+    {key:"dentista", value: "https://enbatadental.com/wp-content/uploads/2021/04/ABRASION-DENTAL-1.jpg"},
+    {key:"default", value: "https://www.hpc.org.ar/wp-content/uploads/Medico-Clinico.jpg"}
+
+  ];
+
   constructor(private _especialistaRepService:EspecialistaRepositoryService, private _usuarioService: UsuarioService, private turnoService:TurnoService, private router:Router){
     this.currentUserFromLocalStorage = this._usuarioService.getCurrentUserProfileLocalStorage();
   }
@@ -47,18 +62,20 @@ export class CrearTurnoPacienteComponent implements OnInit, OnDestroy{
     this.subscription.unsubscribe();
   }
 
-  onEspecialistaChange() {
-   this.selectedSpecialist = this.specialistList.find(esp => esp.docRefEspecialista === this.docRefSpecialistSelected)!;
-
-   console.log(this.selectedSpecialist)
+  onEspecialistaChange(specialist:Especialista) {
+   this.selectedSpecialist = specialist;
+   this.specialistSelected = true;
   }
-  onEspecialidadChange(){
+  onEspecialidadChange(speciality:string){
+    console.log(speciality)
+    this.specialityShowSelected = true;
+    this.specialitySelected = speciality;
     this.selectedSpecialist.turnos = [...this.selectedSpecialist.turnos!];
   }
 
-  onTurnoChange(){
-    this.selectedShift = this.selectedSpecialist.turnos!.find(t => t.idTurnoDocRef === this.selectedShiftDocRef)!;
-    console.log(this.selectedShift)
+  onTurnoChange(shiftSelected:Turno){
+    this.selectedShift = shiftSelected;
+    this.shiftSelected = true;
   }
 
   alertaMensajeSucces(mensaje: string): void {
@@ -99,5 +116,20 @@ export class CrearTurnoPacienteComponent implements OnInit, OnDestroy{
     }else{
       this.alertaMensajeError("Hubo un error al tratar de asignarte el turno");
     }
+  }
+
+
+  getImageSpeciality(speciality:string):string{
+    const foundSpeciality = this.SPECIALITIES.find(s => s.key.includes(speciality.toLocaleLowerCase()));
+
+    return foundSpeciality ? foundSpeciality.value : this.SPECIALITIES.filter(s => s.key ==="default")[0].value;
+  }
+
+
+  undoChanges(){
+    this.specialistSelected = false;
+    this.specialityShowSelected = false;
+    this.shiftSelected = false;
+    !this.turnoPacienteForm.get('aceptaTerminos')?.setValue(false);
   }
 }

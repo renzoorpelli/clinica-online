@@ -6,6 +6,7 @@ docRefEspecialista?:string | undefined;
 estado?:EstadoTurno;
 fechaTurno?: string;
 tipo?:Tratamiento;
+resenia?:string;
 }
 
 

@@ -25,14 +25,37 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of getAll()">
-        <td>Sin definir</td>
-          <td>{{item.fechaTurno}}</td>
+
+        <td *ngIf="item.estado !== 0">Asignado</td>
+        <td *ngIf="item.estado === 0">Sin Definir</td>
+          <td>{{item.fechaTurno! | formatDate : "yyyy-MM-dd h:mm a"}}</td>
           <td>{{this.returnNameShiftState(item.estado!)}}</td>
-          <td>{{item.especialidad}}</td>
-        <td colspan="2">
+          <td>{{item.especialidad!.toUpperCase()}}</td>
+        <td colspan="2" *ngIf="item.estado === 0">
           <div class="button-container">
-            <button class="btn btn-outline-success">✅</button>
-            <button class="btn btn-outline-danger">❌</button>
+            <button class="btn btn-outline-success" disabled>No disponible</button>
+          </div>
+        </td>
+        <td colspan="2" *ngIf="item.estado === 1">
+          <div class="button-container">
+            <input type="text" class="form-control" aria-label="" placeholder="escribe la razón por la cual rechazas el turno" aria-describedby="button-addon2" *ngIf="displayInput && item.idTurnoDocRef === selectedShift!.idTurnoDocRef" [(ngModel)]="resenia" [ngModelOptions]="{standalone:true}">
+            <div *ngIf="!this.displayInput">
+              <button class="btn btn-outline-success mt-1" (click)="onConfirmShift(item)">Aceptar Turno</button>
+            </div>
+            <button class="btn btn-outline-danger mt-1" (click)="onRefuseShift(item)">Cancelar</button>
+            <div *ngIf="this.displayInput">
+              <button class="btn btn-outline-success mt-1" *ngIf="displayInput && item.idTurnoDocRef === selectedShift!.idTurnoDocRef" (click)="onConfirmCancelShift(item)">Confirmar</button>
+            </div>
+      </div>
+        </td>
+        <td colspan="2" *ngIf="item.estado === 2">
+          <div class="button-container">
+            <button class="btn btn-outline-success" (click)="onRealiceShift(item)">Realizar</button>
+          </div>
+        </td>
+        <td colspan="2" *ngIf="item.estado === 5">
+          <div class="button-container">
+            <button class="btn btn-outline-success" (click)="onReviewShift(item)">Ver reseña</button>
           </div>
         </td>
       </tr>

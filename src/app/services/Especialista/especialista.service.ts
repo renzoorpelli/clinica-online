@@ -20,33 +20,46 @@ import { EspecialistaRepositoryService } from './especialista-repository.service
 import { Especialidad } from 'src/app/interfaces/Especialidad';
 import { EstadoTurno, Turno } from 'src/app/interfaces/Turno';
 import { TurnoRepositoryService } from '../Turno/turno-repository.service';
+import { Paciente } from 'src/app/interfaces/Paciente';
+import { PacienteRepositoryService } from '../Paciente/paciente-repository.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EspecialistaService  {
-
-  constructor(private _especialistaRepository:EspecialistaRepositoryService, private _turnoRepository:TurnoRepositoryService){
-  }
+export class EspecialistaService {
+  constructor(
+    private _especialistaRepository: EspecialistaRepositoryService,
+    private _turnoRepository: TurnoRepositoryService,
+    private _pacientRepository:PacienteRepositoryService
+  ) {}
 
   // asigna la especialidad formalmente, con los dias y horario que la atendera
-  asignarEspecialidadEspecialista(especialidad:Especialidad, idDocRefEspecialista:string){
-    if(!especialidad){
+  asignarEspecialidadEspecialista(
+    especialidad: Especialidad,
+    idDocRefEspecialista: string
+  ) {
+    if (!especialidad) {
       return;
     }
-    this._especialistaRepository.updateSpecialityAttribute(idDocRefEspecialista, especialidad);
+    this._especialistaRepository.updateSpecialityAttribute(
+      idDocRefEspecialista,
+      especialidad
+    );
   }
 
-  asignarTurnoEspecialista(turno:Turno, docRefEspecialista:string){
-    if(!turno){
+  asignarTurnoEspecialista(turno: Turno, docRefEspecialista: string) {
+    if (!turno) {
       return;
     }
-    let response = this._turnoRepository.create(turno, "null");
+    let response = this._turnoRepository.create(turno, 'null');
     turno.idTurnoDocRef = response;
-    this._especialistaRepository.updateShiftAttriubte(turno,docRefEspecialista);
+    this._especialistaRepository.updateShiftAttriubte(
+      turno,
+      docRefEspecialista
+    );
   }
 
-  returnShiftNameByNumber(number:number):string{
+  returnShiftNameByNumber(number: number): string {
     switch (number) {
       case EstadoTurno.Libre:
         return 'Libre';
@@ -65,8 +78,29 @@ export class EspecialistaService  {
     }
   }
 
-  returnShiftTypeByNum(number:number):string{
-    return number === 0 ? "Consulta" : "Tratamiento";
+  returnShiftTypeByNum(number: number): string {
+    return number === 0 ? 'Consulta' : 'Tratamiento';
   }
 
+  getPacientsFromFinishShifts(
+    shiftFinished: Turno[],
+    pacients: Paciente[]
+  ): Paciente[] {
+    const docRefFinishedShift = shiftFinished
+      .filter((s) => s.estado === 5)
+      .map((s) => s.docRefPaciente);
+    return pacients.filter((p) =>
+      docRefFinishedShift.includes(p.docRefPaciente)
+    );
+  }
+
+
+  setClinicHistoryToPacient(pacient:Paciente, clinicHistory:any){
+    try {
+      this._pacientRepository.addClinicHistoryToPatient(pacient, clinicHistory);
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 }

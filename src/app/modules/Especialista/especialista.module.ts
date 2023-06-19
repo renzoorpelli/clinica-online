@@ -17,6 +17,11 @@ import { TurnoRepositoryService } from 'src/app/services/Turno/turno-repository.
 import { EspecialistaMainComponent } from 'src/app/pages/Especialista/especialista-main/especialista-main.component';
 import { AgendaMainComponent } from 'src/app/pages/Especialista/agenda-main/agenda-main.component';
 import { ObtenerAgendaComponent } from 'src/app/pages/Especialista/obtener-agenda/obtener-agenda.component';
+import { PacienteModule } from '../Paciente/paciente.module';
+import { PacientesComponent } from 'src/app/pages/Especialista/pacientes/pacientes.component';
+import { HistoriaClinicaPacienteComponent } from 'src/app/components/Especialista/historia-clinica-paciente/historia-clinica-paciente.component';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ObtenerhistoriaClinicaPacienteComponent } from 'src/app/components/Especialista/obtenerhistoria-clinica-paciente/obtenerhistoria-clinica-paciente.component';
 
 
 @NgModule({
@@ -29,7 +34,10 @@ import { ObtenerAgendaComponent } from 'src/app/pages/Especialista/obtener-agend
     EspecialistasNombrePipe,
     FiltrarEspecialistasPipe,
     ObtenerAgendaComponent,
-    AgendaMainComponent
+    AgendaMainComponent,
+    PacientesComponent,
+    HistoriaClinicaPacienteComponent,
+    ObtenerhistoriaClinicaPacienteComponent
 
   ],
   imports: [
@@ -37,7 +45,9 @@ import { ObtenerAgendaComponent } from 'src/app/pages/Especialista/obtener-agend
     EspecialistaRoutingModule,
     FormsModule,
     FormModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PacienteModule,
+    NgbModule
   ],
   providers: [
     EspecialistaRepositoryService,

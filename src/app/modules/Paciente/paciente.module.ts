@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormModule } from '../Common/form.module';
 import { FilterShiftBySpecialityPipe } from 'src/app/pipes/paciente/filter-shift-by-speciality.pipe';
 import { TurnoService } from 'src/app/services/Turno/turno.service';
+import { FormatDatePipe } from 'src/app/pipes/paciente/format-date.pipe';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TurnoService } from 'src/app/services/Turno/turno.service';
     PacienteMainComponent,
     CrearTurnoPacienteComponent,
     ObtenerTurnosPacienteComponent,
-    FilterShiftBySpecialityPipe
+    FilterShiftBySpecialityPipe,
+    FormatDatePipe
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,9 @@ import { TurnoService } from 'src/app/services/Turno/turno.service';
     ReactiveFormsModule,
     FormModule,
     FormsModule
+  ],
+  exports: [
+    FormatDatePipe
   ],
   providers:[
     PacienteRepositoryService,

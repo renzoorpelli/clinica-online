@@ -13,14 +13,20 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of getAll()">
-          <td>{{item.fechaTurno}}</td>
+          <td>{{item.fechaTurno! |  formatDate : "yyyy-MM-dd h:mm a"}}</td>
           <td>{{this.returnNameShiftState(item.estado!)}}</td>
-          <td>{{item.especialidad}}</td>
+          <td>{{item.especialidad!.toUpperCase()}}</td>
           <td>{{this.returnNameOfTypeShift(item.tipo!)}}</td>
-        <td colspan="2">
+        <td colspan="2" *ngIf="item.estado ===1 || item.estado === 2 ">
           <div class="button-container">
-            <button class="btn btn-outline-success">✅</button>
-            <button class="btn btn-outline-danger">❌</button>
+                <input type="text" class="form-control" aria-label="" placeholder="escribe la razón por la cual cancelas el turno" aria-describedby="button-addon2" *ngIf="displayInput && item.idTurnoDocRef === selectedShift!.idTurnoDocRef" [(ngModel)]="resenia" [ngModelOptions]="{standalone:true}">
+                <button class="btn btn-outline-danger mt-1" (click)="onCancelShift(item)">Cancelar</button>
+                <button class="btn btn-outline-success mt-1" *ngIf="displayInput && item.idTurnoDocRef === selectedShift!.idTurnoDocRef" (click)="onConfirmCancelShift(item)">Confirmar</button>
+          </div>
+        </td>
+        <td colspan="2" *ngIf="item.estado ===4 ">
+          <div class="button-container">
+                <button class="btn btn-outline-secondary mt-1" (click)="onReviewShift(item)">Ver razón</button>
           </div>
         </td>
       </tr>

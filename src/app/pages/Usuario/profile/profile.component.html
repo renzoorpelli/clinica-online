@@ -28,6 +28,11 @@
           <button class="btn btn-outline-secondary" routerLink="/especialista/agenda">Mi Agenda</button>
         </div>
       </ng-container>
+      <ng-container *ngIf="userFromLocalStorage!.rol === 'paciente'">
+        <div class="d-flex mt-2">
+          <button class="btn btn-outline-secondary" (click)="onReviewClinicHistory()">Mi Historia Clínica</button>
+        </div>
+      </ng-container>
 
       <div class="text mt-3">
         <span

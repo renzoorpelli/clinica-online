@@ -1,59 +1,192 @@
 <div class="container">
   <form [formGroup]="turnoPacienteForm" (ngSubmit)="onSubmit()">
-    <div class="form-group mb-3">
-      <label for="especialista" class="lead mb-3">Especialista</label>
-      <select id="especialista" (change)="onEspecialistaChange()" class="form-control" [(ngModel)]="docRefSpecialistSelected" [ngModelOptions]="{standalone:true}">
-        <option *ngFor="let item of specialistList" [value]="item.docRefEspecialista">{{item.nombre}}-{{item.apellido}}</option>
-      </select>
-    </div>
-    <ng-container *ngIf="selectedSpecialist && selectedSpecialist.especialidades">
-      <label class="lead">El especialista atiende las siguientes especialidades en los días:</label>
-      <div class="row mt-3">
-        <div class="col-12 col-sm-6 col-md-4" *ngFor="let item of selectedSpecialist.especialidades">
-          <div class="card mb-3">
-            <div class="card-header">ESPECIALIDAD: {{item.nombre}}</div>
-            <div class="card-body">
-              <p>Día: {{item.agenda.dia}}</p>
-              <p>Desde: {{item.agenda.desde}}</p>
-              <p>Hasta: {{item.agenda.hasta}}</p>
+    <ng-container *ngIf="!this.specialistSelected">
+      <label for="especialista" class="lead mb-3"
+        >Selecciona un Especialista</label
+      >
+      <div class="row">
+        <div class="col-md-4" *ngFor="let specialist of specialistList">
+          <div class="card card-custom-especialist mb-3">
+            <div class="card-body text-center">
+              <button
+                (click)="onEspecialistaChange(specialist)"
+                class="btn btn-outline-secondary"
+              >
+                <img
+                  [src]="specialist.imagenPerfil1"
+                  alt="Specialist Image"
+                  class="img-fluid"
+                />
+              </button>
             </div>
           </div>
         </div>
       </div>
     </ng-container>
-    <ng-container *ngIf="this.selectedSpecialist && this.selectedSpecialist.especialidad">
-      <div class="form-group mt-3">
-        <label for="especialidad" class="lead mb-3">Selecciona la especialidad para saber los turnos disponibles:</label>
-        <select id="especialidad"  (change)="onEspecialidadChange()" class="form-control" [(ngModel)]="specialitySelected" [ngModelOptions]="{standalone:true}">
-          <option *ngFor="let item of selectedSpecialist.especialidad" [value]="item">{{item}}</option>
-        </select>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="this.selectedSpecialist && this.selectedSpecialist.turnos && this.specialitySelected;else error">
-      <div class="form-group mt-3">
-        <label for="turno" class="lead mb-3">Turno Disponible especialidad</label>
-        <select id="especialidad" class="form-control" (change)="onTurnoChange()" [(ngModel)]="selectedShiftDocRef" [ngModelOptions]="{standalone:true}">
-          <option *ngFor="let item of selectedSpecialist.turnos | filterShiftBySpeciality: specialitySelected" [value]="item.idTurnoDocRef">ESPECIALIDAD: {{item.especialidad}} - {{item.fechaTurno}}</option>
-        </select>
-      </div>
-      <div class="form-group mt-3">
-        <label for="turno" class="lead mb-3">Seleccione el tipo de turno</label>
-        <select id="especialidad" class="form-control" [(ngModel)]="this.selectedTypeOfShift" [ngModelOptions]="{standalone:true}">
-          <option *ngFor="let item of TYPE_SHIFT" [value]="item">{{item}}</option>
-        </select>
-        <div class="form-check mt-3">
-          <input class="form-check-input" type="checkbox" id="checkTerminos" formControlName="aceptaTerminos">
-          <label class="form-check-label" for="checkTerminos">
-            Acepto que el turno queda pendiente de ser aceptado por el profesional.
-          </label>
+
+    <!--
+    <ng-container
+    *ngIf="selectedSpecialist && selectedSpecialist.especialidades"
+  >
+  <div class="row">
+    <label class="lead mt-3 mb-3">El especialista atiende las siguientes especialidades en los días:</label>
+    <div class="col-md-4" *ngFor="let item of selectedSpecialist.especialidades">
+      <div class="card card-custom mb-3">
+        <div class="card-header">ESPECIALIDAD: {{ item.nombre.toUpperCase() }}</div>
+        <div class="card-body">
+          <p>Día: {{ item.agenda.dia }}</p>
+          <p>Desde: {{ item.agenda.desde }}</p>
+          <p>Hasta: {{ item.agenda.hasta }}</p>
         </div>
       </div>
-    </ng-container>
-    <ng-template #error>
-      <p class="lead text-danger">Lo lamento, no hay turnos cargados para esa especialidad</p>
-    </ng-template>
-    <div class="form-group mt-3">
-      <button type="submit" [disabled]="!this.turnoPacienteForm.get('aceptaTerminos')?.value" class="btn btn-outline-secondary">Asignar Turno</button>
+    </div>
+  </div>
+  </ng-container> -->
+
+    <div class="row">
+      <ng-container
+        *ngIf="
+          this.selectedSpecialist &&
+          this.selectedSpecialist.especialidad &&
+          specialistSelected &&
+          !specialityShowSelected
+        "
+      >
+        <div class="form-group">
+          <label for="especialidad" class="lead mb-3"
+            >Selecciona la especialidad para saber los turnos
+            disponibles:</label
+          >
+          <div class="row">
+            <div
+              class="col-md-3 mb-3"
+              *ngFor="let speciality of selectedSpecialist.especialidad"
+            >
+              <div class="card card-custom">
+                <div class="card-body text-center">
+                  <p class="card-title lead">
+                    NOMBRE: {{ speciality!.toUpperCase() }}
+                  </p>
+                  <button
+                    (click)="onEspecialidadChange(speciality)"
+                    class="btn btn-outline-secondary"
+                  >
+                    <img
+                      [src]="getImageSpeciality(speciality)"
+                      alt="specialityImage"
+                      class="img-fluid"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mt-3">
+        </div>
+      </ng-container>
+      <ng-container
+        *ngIf="
+          this.selectedSpecialist &&
+          this.specialitySelected &&
+          this.specialityShowSelected &&
+          this.specialistSelected &&
+          !this.shiftSelected
+        "
+      >
+        <div class="form-group mb-3">
+          <label for="turno" class="lead mb-3"
+            >Turno Disponible especialidad</label
+          >
+          <div class="jumbotron">
+            <div class="row">
+              <ng-container *ngIf="!selectedSpecialist.turnos">
+                <div class="alert alert-danger" role="alert">
+                  <p class="lead text-danger">No hay turnos disponibles</p>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="selectedSpecialist.turnos!.length > 0">
+                <div
+                class="col-sm-12 col-md-4 col-lg-3"
+                *ngFor="
+                  let element of selectedSpecialist.turnos!
+                    | filterShiftBySpeciality : specialitySelected
+                "
+              >
+                <div class="card mb-4">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">
+                      ESPECIALIDAD: {{ element.especialidad }}
+                    </h5>
+                    <p class="card-text">
+                      {{
+                        element.fechaTurno! | formatDate : "yyyy-MM-dd h:mm a"
+                      }}
+                    </p>
+                    <button
+                      class="btn btn-outline-secondary"
+                      (click)="onTurnoChange(element)"
+                    >
+                      SELECCIONAR TURNO
+                    </button>
+                  </div>
+                </div>
+              </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+
+
+      </ng-container>
+      <ng-container *ngIf="this.shiftSelected">
+        <div class="form-group mt-3">
+          <label for="turno" class="lead mb-3"
+            >Seleccione el tipo de turno</label
+          >
+          <select
+            id="especialidad"
+            class="form-control"
+            [(ngModel)]="this.selectedTypeOfShift"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option *ngFor="let item of TYPE_SHIFT" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <div class="form-check mt-3 mb-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="checkTerminos"
+              formControlName="aceptaTerminos"
+            />
+            <label class="form-check-label" for="checkTerminos">
+              Acepto que el turno queda pendiente de ser aceptado por el
+              profesional.
+            </label>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-group">
+      <ng-container *ngIf="this.shiftSelected">
+        <button
+        type="submit"
+        [disabled]="
+          !this.turnoPacienteForm.get('aceptaTerminos')?.value
+        "
+        class="btn btn-outline-secondary"
+      >
+        Asignar Turno
+      </button>
+      </ng-container>
+      <ng-container *ngIf="this.specialistSelected">
+        <button (click)="undoChanges()" class="btn btn-outline-danger mx-2">
+          Deshacer Cambios
+        </button>
+      </ng-container>
     </div>
   </form>
 </div>

@@ -64,7 +64,8 @@ export class TurnoRepositoryService implements Repository<Turno> {
         estado: modifiedShift.estado,
         fechaTurno: modifiedShift.fechaTurno,
         docRefPaciente: modifiedShift.docRefEspecialista,
-        tipo: modifiedShift.tipo
+        tipo: modifiedShift.tipo,
+        resenia: modifiedShift.resenia
       });
 
       return true;

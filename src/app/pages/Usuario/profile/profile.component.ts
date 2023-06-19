@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ObtenerhistoriaClinicaPacienteComponent } from 'src/app/components/Especialista/obtenerhistoria-clinica-paciente/obtenerhistoria-clinica-paciente.component';
 import { Especialista } from 'src/app/interfaces/Especialista';
 import { Paciente } from 'src/app/interfaces/Paciente';
 import { Usuario } from 'src/app/interfaces/Usuario';
@@ -18,7 +20,7 @@ export class ProfileComponent {
     this.userProfileLocalStorage = this._userService.getCurrentUserProfileLocalStorage();
   }
 
-  constructor(private _userService: UsuarioService, private _router: Router){}
+  constructor(private _userService: UsuarioService, private _router: Router, private _modalService: NgbModal){}
 
   logOut(){
     this.userFromLocalStorage = undefined;
@@ -27,4 +29,15 @@ export class ProfileComponent {
   }
 
 
+  onReviewClinicHistory(){
+    const modalRef = this._modalService.open(ObtenerhistoriaClinicaPacienteComponent, {centered: true});
+
+    modalRef.componentInstance.data = this.userProfileLocalStorage.historiaClinica;
+
+    modalRef.result.then(result => {
+      console.log(result)
+    }).catch(err => {
+      console.log(err);
+    })
+  }
 }
