@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Especialista } from 'src/app/interfaces/Especialista';
 import { Paciente } from 'src/app/interfaces/Paciente';
 import { Turno } from 'src/app/interfaces/Turno';
 import { Usuario } from 'src/app/interfaces/Usuario';
 import { EspecialistaService } from 'src/app/services/Especialista/especialista.service';
+import { PDFService } from 'src/app/services/File/pdf.service';
 import { PacienteRepositoryService } from 'src/app/services/Paciente/paciente-repository.service';
 import { TurnoService } from 'src/app/services/Turno/turno.service';
 import { UsuarioService } from 'src/app/services/Usuario/usuario.service';
@@ -22,8 +25,13 @@ export class ObtenerTurnosPacienteComponent implements OnInit, OnDestroy {
   resenia:string = "";
   displayInput:boolean = false;
   selectedShift?:Turno;
+  specialist?:string;
+  selectedSpecialist?:Especialista;
+  specialists?:Especialista[];
+  subscription?:Subscription;
+  docRefsSpecialist?:string[];
 
-  constructor(private _usuarioService: UsuarioService, private pacientRepository:PacienteRepositoryService, private especialistService:EspecialistaService, private _turnoService:TurnoService) {
+  constructor(private _usuarioService: UsuarioService, private pacientRepository:PacienteRepositoryService, private especialistService:EspecialistaService, private _turnoService:TurnoService, private _pdfService:PDFService) {
 
   }
 
@@ -31,13 +39,21 @@ export class ObtenerTurnosPacienteComponent implements OnInit, OnDestroy {
     this.userFromLocalStorage =
     this._usuarioService.getCurrentUserProfileLocalStorage();
 
-    this.pacientRepository
-      .getPacienteByDocRef(
+    if(!this.subscription){
+      this.pacientRepository
+      .getPacienteByDocRefObservable(
         this.userFromLocalStorage!.docRefPaciente!
       )
-      .then((data) => {
+      .subscribe((data) => {
         this.pacientUpdated = data.data() as Paciente;
+
+        this.docRefsSpecialist = [...new Set(this.pacientUpdated.turnos?.map(t => t.docRefEspecialista!))];
+
+        this.subscription = this.especialistService.getSelectedSpecialist(this.docRefsSpecialist!).subscribe(data => {
+          this.specialists = data;
+        })
       });
+    }
   }
 
   returnNameShiftState(number:number):string{
@@ -48,11 +64,9 @@ export class ObtenerTurnosPacienteComponent implements OnInit, OnDestroy {
     return this.especialistService.returnShiftTypeByNum(number);
   }
 
-  getAll(){
-    return this.pacientUpdated.turnos!;
-  }
   ngOnDestroy(): void {
     this.userFromLocalStorage = null;
+    this.subscription!.unsubscribe();
   }
 
   onCancelShift(shift:Turno){
@@ -90,5 +104,18 @@ export class ObtenerTurnosPacienteComponent implements OnInit, OnDestroy {
       icon: 'error',
       confirmButtonText: 'Aceptar'}
     )
+   }
+
+   onFilterSpecialistChange(){
+      this.selectedSpecialist = this.specialists?.filter(sp => sp.docRefEspecialista === this.specialist)[0];
+   }
+
+   onClearFilter(){
+    this.selectedSpecialist = undefined;
+   }
+
+   onExportToPdf(){
+    let element = document.getElementsByTagName('table')[0]!;
+    this._pdfService.generatePDF(element, `Historial turnos con: DR.  ${this.selectedSpecialist?.nombre} ${this.selectedSpecialist?.apellido}`)
    }
 }

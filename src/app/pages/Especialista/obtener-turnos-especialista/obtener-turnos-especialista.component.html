@@ -1,24 +1,14 @@
 <div class="container">
   <h4>Turnos Especialista</h4>
   <p class="lead">En esta sección podrás observar tus turnos</p>
-  <div class="mb-3">
-    <!-- <label for="filtroEstado" class="form-label">Filtrar por estado:</label>
-    <select id="filtroEstado" class="form-select" (change)="onFilterShiftsByState(estadoSeleccionado)" [(ngModel)]="estadoSeleccionado" [ngModelOptions]="{standalone:true} ">
-      <option value="" disabled>Todos</option>
-      <option value="0">Libre</option>
-      <option value="1">Pendiente</option>
-      <option value="2">Aceptado</option>
-      <option value="3">Rechazado</option>
-      <option value="4">Cancelado</option>
-      <option value="5">Realizado</option>
-    </select> -->
+  <div class="mb-3" *ngIf="this.specialistUpdated.turnos && this.specialistUpdated.turnos.length > 0">
     <label for="filtroEstado" class="form-label">Filtrar por semana:</label>
     <select id="filtroEstado" class="form-select" (change)="onFilterDateChange(fechaSeleccionada)" [(ngModel)]="fechaSeleccionada" [ngModelOptions]="{standalone:true} ">
     <option *ngFor="let item of getDatesOfShifts()" [value]="item">{{item}}</option>
     </select>
   </div>
   <div class="table-container">
-  <table class="table table-hover">
+  <table class="table table-hover" *ngIf="this.specialistUpdated.turnos && this.specialistUpdated.turnos.length > 0">
     <thead>
       <tr>
         <th>Paciente</th>
@@ -29,8 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of getAll()">
-
+      <tr *ngFor="let item of this.specialistUpdated.turnos!">
         <td *ngIf="item.estado !== 0">Asignado</td>
         <td *ngIf="item.estado === 0">Sin Definir</td>
           <td>{{item.fechaTurno! | formatDate : "yyyy-MM-dd h:mm a"}}</td>
@@ -58,13 +47,11 @@
             <button class="btn btn-outline-success" (click)="onRealiceShift(item)">Realizar</button>
           </div>
         </td>
-        <td colspan="2" *ngIf="item.estado === 5">
-          <div class="button-container">
-            <button class="btn btn-outline-success" (click)="onReviewShift(item)">Ver reseña</button>
-          </div>
-        </td>
       </tr>
     </tbody>
   </table>
+  <div class="alert alert-warning" role="alert" *ngIf="!this.specialistUpdated.turnos || this.specialistUpdated.turnos.length === 0">
+    <p class="lead text-warning" >Todavía no tienes turnos cargados.</p>
+  </div>
 </div>
 </div>

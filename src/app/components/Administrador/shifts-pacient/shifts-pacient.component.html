@@ -1,0 +1,27 @@
+<div class="container">
+<ng-container *ngIf="!this.data.turnos">
+  <p class="lead">El Paciente no tiene turnos</p>
+</ng-container>
+<ng-container *ngIf="this.data.turnos">
+    <h4>Turnos Paciente: {{this.data.nombre}} {{this.data.apellido}}</h4>
+    <button class="btn btn-outline-secondary" (click)="onExportAsPDF()">Exportar Turnos a PDF</button>
+    <table class="table table-hover" id="tableToPrint">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Especialidad</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of this.data.turnos!">
+          <td>{{item.fechaTurno! |  formatDate : "yyyy-MM-dd h:mm a"}}</td>
+          <td>{{this.returnNameShiftState(item.estado!)}}</td>
+          <td>{{item.especialidad!.toUpperCase()}}</td>
+          <td>{{this.returnNameOfTypeShift(item.tipo!)}}</td>
+        </tr>
+      </tbody>
+    </table>
+</ng-container>
+</div>

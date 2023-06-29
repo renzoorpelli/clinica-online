@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Repository } from 'src/app/Data/common-repository.interface';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import {
   CollectionReference,
   DocumentData,
@@ -151,7 +151,10 @@ export class EspecialistaRepositoryService implements Repository<Especialista> {
         console.log("No se encontró el turno");
       }
     });
+  }
 
-
+  getSpecialistByDocRefObservable(specialistDocRef: string): Observable<DocumentSnapshot> {
+    const documentReference = doc(this.listadoEspecialistas, specialistDocRef);
+    return from(getDoc(documentReference));
   }
 }

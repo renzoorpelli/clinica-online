@@ -11,6 +11,8 @@ import { FormModule } from '../Common/form.module';
 import { FilterShiftBySpecialityPipe } from 'src/app/pipes/paciente/filter-shift-by-speciality.pipe';
 import { TurnoService } from 'src/app/services/Turno/turno.service';
 import { FormatDatePipe } from 'src/app/pipes/paciente/format-date.pipe';
+import { FilterShiftBySpecialistPipe } from 'src/app/pipes/paciente/filter-shift-by-specialist.pipe';
+import { ToolTipSpecialityDirective } from 'src/app/directives/paciente/tool-tip-speciality.directive';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { FormatDatePipe } from 'src/app/pipes/paciente/format-date.pipe';
     CrearTurnoPacienteComponent,
     ObtenerTurnosPacienteComponent,
     FilterShiftBySpecialityPipe,
-    FormatDatePipe
+    FormatDatePipe,
+    FilterShiftBySpecialistPipe,
+    ToolTipSpecialityDirective
   ],
   imports: [
     CommonModule,

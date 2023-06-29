@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Especialista } from 'src/app/interfaces/Especialista';
-import { Paciente } from 'src/app/interfaces/Paciente';
-import { EstadoTurno, Turno } from 'src/app/interfaces/Turno';
+import { Turno } from 'src/app/interfaces/Turno';
 import { EspecialistaRepositoryService } from 'src/app/services/Especialista/especialista-repository.service';
 import { EspecialistaService } from 'src/app/services/Especialista/especialista.service';
-import { PacienteRepositoryService } from 'src/app/services/Paciente/paciente-repository.service';
 import { TurnoService } from 'src/app/services/Turno/turno.service';
 import { UsuarioService } from 'src/app/services/Usuario/usuario.service';
 import Swal from 'sweetalert2';
@@ -15,7 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './obtener-turnos-especialista.component.html',
   styleUrls: ['./obtener-turnos-especialista.component.css'],
 })
-export class ObtenerTurnosEspecialistaComponent implements OnInit {
+export class ObtenerTurnosEspecialistaComponent implements OnInit, OnDestroy {
   specialistFromLocalStorage!: Especialista;
   specialistUpdated!: Especialista;
   fechaSeleccionada!: string;
@@ -23,11 +21,11 @@ export class ObtenerTurnosEspecialistaComponent implements OnInit {
   resenia: string = '';
   displayInput: boolean = false;
   selectedShift?: Turno;
+  private _subscription!:Subscription;
 
   constructor(
     private _especialistasRepository: EspecialistaRepositoryService,
     private _usuarioService: UsuarioService,
-    private _pacineteService: PacienteRepositoryService,
     private _especialistaService: EspecialistaService,
     private _turnoService: TurnoService
   ) {}
@@ -36,21 +34,23 @@ export class ObtenerTurnosEspecialistaComponent implements OnInit {
     this.specialistFromLocalStorage =
       this._usuarioService.getCurrentUserProfileLocalStorage();
 
-    this._especialistasRepository
-      .getSpecialistByDocRef(
-        this.specialistFromLocalStorage.docRefEspecialista!
-      )
-      .then((data) => {
-        this.specialistUpdated = data.data() as Especialista;
-      });
+    if(!this._subscription){
+      this._subscription = this._especialistasRepository
+        .getSpecialistByDocRefObservable(
+          this.specialistFromLocalStorage.docRefEspecialista!
+        )
+        .subscribe((data) => {
+          this.specialistUpdated = data.data() as Especialista;
+        });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   returnNameShiftState(number: number): string {
     return this._especialistaService.returnShiftNameByNumber(number);
-  }
-
-  getAll() {
-    return this.specialistUpdated.turnos!;
   }
 
   onConfirmShift(shift: Turno) {

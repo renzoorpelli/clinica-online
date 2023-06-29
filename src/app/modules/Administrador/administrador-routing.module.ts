@@ -4,6 +4,7 @@ import { AdminAuthGuardService } from 'src/app/guards/admin-auth.service';
 import { AdminAltaComponent } from 'src/app/pages/Administrador/admin-alta/admin-alta.component';
 import { AdmisionComponent } from 'src/app/pages/Administrador/admision/admision.component';
 import { GestionUsuariosComponent } from 'src/app/pages/Administrador/gestion-usuarios/gestion-usuarios.component';
+import { ObtenerEstadisticasComponent } from 'src/app/pages/Administrador/obtener-estadisticas/obtener-estadisticas.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
       { path: 'add', component: AdminAltaComponent },
     ]
   },
-  {path:'gestion', component: GestionUsuariosComponent,canActivate:[AdminAuthGuardService] }
+  {path:'gestion', component: GestionUsuariosComponent,canActivate:[AdminAuthGuardService] },
+  {path:'estadistica', component: ObtenerEstadisticasComponent,canActivate:[AdminAuthGuardService] }
 ];
 
 @NgModule({

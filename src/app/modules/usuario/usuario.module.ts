@@ -20,13 +20,15 @@ import { NoAuthGuardService } from 'src/app/guards/noauth.service';
 import { AdminAuthGuardService } from 'src/app/guards/admin-auth.service';
 import { CaptchaValidatorDirective } from 'src/app/directives/Register/captcha-validator.directive';
 import { ProfileImageService } from 'src/app/services/File/profile-image.service';
+import { ProfilePhotoZoomDirective } from 'src/app/directives/Usuario/profile-photo-zoom.directive';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    CaptchaValidatorDirective
+    CaptchaValidatorDirective,
+    ProfilePhotoZoomDirective
   ],
   imports: [
     CommonModule,

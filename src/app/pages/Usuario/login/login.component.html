@@ -1,54 +1,68 @@
-<div class="scrollable-col">
-  <div class="row">
-    <div class="col">
-      <div class="box">
-        <button class="btn btn-outline-secondary"  style="width: 90px;"
-        (click)="InsertCredentials(this.listadoPaciente[0])"
-        ><img
-          src="{{ this.listadoPaciente[0].imagenPerfil1 }}"
-          alt="paciente 1"
-          style="width: 40px; height: 40px;"
-        /></button>
-        <button class="btn btn-outline-secondary"  style="width: 90px;"
-        (click)="InsertCredentials(this.listadoPaciente[1])">
-          <img
-          src="{{ this.listadoPaciente[1].imagenPerfil1 }}"
-          alt="paciente 2"
-          style="width: 40px; height: 40px;"
-        /></button>
-        <button class="btn btn-outline-secondary"  style="width: 90px;"
-        (click)="InsertCredentials(this.listadoPaciente[2])"><img
-          src="{{ this.listadoPaciente[2].imagenPerfil1 }}"
-          alt="paciente 3"
-          style="width: 40px; height: 40px;"
-        /></button>
-        <button class="btn btn-outline-secondary"  style="width: 90px;"
-        (click)="InsertCredentials(this.listadoEspecialista[0])" ><img
-          src="{{ this.listadoEspecialista[0].imagenPerfil1 }}"
-          alt="especialista 1"
-          style="width: 40px; height: 40px;"
-        /></button>
-        <button class="btn btn-outline-secondary"  style="width: 90px;"
-        (click)="InsertCredentials(this.listadoEspecialista[1])">
-          <img
-          src="{{ this.listadoEspecialista[1].imagenPerfil1 }}"
-          alt="especialista 2"
-          style="width: 40px; height: 40px;"
-        /></button>
+<!-- <div class="scrollable-col"> -->
+<div
+  class="d-flex align-items-center justify-content-center"
+  style="min-height: 100vh"
+>
+  <div class="row w-100">
+    <div class="col-md-6 d-flex align-items-center">
+      <div class="d-flex flex-column gap-2 mx-auto">
         <button
-          class="btn btn-outline-secondary"
-          style="width: 90px;"
+          class="btn btn-outline-secondary accessBtn"
+          (click)="InsertCredentials(this.listadoPaciente[0])"
+        >
+          <img
+            src="{{ this.listadoPaciente[0].imagenPerfil1 }}"
+            alt="paciente 1"
+          />
+        </button>
+        <button
+          class="btn btn-outline-secondary accessBtn"
+          (click)="InsertCredentials(this.listadoPaciente[1])"
+        >
+          <img
+            src="{{ this.listadoPaciente[1].imagenPerfil1 }}"
+            alt="paciente 2"
+          />
+        </button>
+        <button
+          class="btn btn-outline-secondary accessBtn"
+          (click)="InsertCredentials(this.listadoPaciente[2])"
+        >
+          <img
+            src="{{ this.listadoPaciente[2].imagenPerfil1 }}"
+            alt="paciente 3"
+          />
+        </button>
+        <button
+          class="btn btn-outline-secondary accessBtn"
+          (click)="InsertCredentials(this.listadoEspecialista[0])"
+        >
+          <img
+            src="{{ this.listadoEspecialista[0].imagenPerfil1 }}"
+            alt="especialista 1"
+          />
+        </button>
+        <button
+          class="btn btn-outline-secondary accessBtn"
+          (click)="InsertCredentials(this.listadoEspecialista[1])"
+        >
+          <img
+            src="{{ this.listadoEspecialista[1].imagenPerfil1 }}"
+            alt="especialista 2"
+          />
+        </button>
+        <button
+          class="btn btn-outline-secondary accessBtn"
           (click)="InsertCredentials(this.admin)"
         >
           <img
             src="{{ this.admin.imagenPerfil1 }}"
             alt="imagen administrador"
-            style="width: 40px; height: 40px;"
           />
         </button>
       </div>
     </div>
-    <div class="col">
+    <div class="col-md-6 d-flex align-items-center">
       <app-form
         title="Bienvenido usuari@!"
         [form]="loginForm"
@@ -100,5 +114,7 @@
         </div>
       </app-form>
     </div>
+    <!-- <div classk="col"></div> -->
   </div>
+  <!-- </div> -->
 </div>

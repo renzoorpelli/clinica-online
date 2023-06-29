@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateTurnoComponent } from './create-turno.component';
+import { GenerateGraphComponent } from './generate-graph.component';
 
-describe('CreateTurnoComponent', () => {
-  let component: CreateTurnoComponent;
-  let fixture: ComponentFixture<CreateTurnoComponent>;
+describe('GenerateGraphComponent', () => {
+  let component: GenerateGraphComponent;
+  let fixture: ComponentFixture<GenerateGraphComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateTurnoComponent ]
+      declarations: [ GenerateGraphComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateTurnoComponent);
+    fixture = TestBed.createComponent(GenerateGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

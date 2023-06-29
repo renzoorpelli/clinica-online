@@ -1,0 +1,24 @@
+<div class="container">
+  <h4>Estadísticas del sistema</h4>
+  <p class="lead">Aquí podrás generar los gráficos del sistema y exportarlos a PDF. Por favor selecciona un reporte</p>
+  <div class="jumbotron">
+    <div class="d-flex justify-content-around">
+      <!-- <button type="button" class="btn btn-outline-secondary" (click)="onSelectGraph(5)">Logs ingreso sistema</button> -->
+      <button type="button" class="btn btn-outline-secondary" (click)="onSelectGraph(1)">Turnos por especialidad</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="onSelectGraph(2)">Turnos por día</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="onSelectGraph(3)">Turnos lapso de tiempo (1 Mes)</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="onSelectGraph(4)">Turnos realizados en un lapso de tiempo (1 Mes)</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="onSelectGraph(5)">Ingresos al sistema</button>
+    </div>
+  </div>
+  <div class="container-spinner" *ngIf="this.showSpinner">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <ng-container *ngIf="this.selectedOption">
+    <app-generate-graph *ngIf="this.selectedOption === 1"[typeGraph]="this.selectedOption" (onHideEmmitter)="onHandleEvent($event)"></app-generate-graph>
+    <app-generate-graph *ngIf="this.selectedOption ===2"[typeGraph]="this.selectedOption" (onHideEmmitter)="onHandleEvent($event)" ></app-generate-graph>
+    <app-generate-graph *ngIf="this.selectedOption ===3"[typeGraph]="this.selectedOption" (onHideEmmitter)="onHandleEvent($event)"></app-generate-graph>
+    <app-generate-graph *ngIf="this.selectedOption ===4"[typeGraph]="this.selectedOption" (onHideEmmitter)="onHandleEvent($event)"></app-generate-graph>
+    <app-generate-graph *ngIf="this.selectedOption ===5"[typeGraph]="this.selectedOption" (onHideEmmitter)="onHandleEvent($event)"></app-generate-graph>
+  </ng-container>
+</div>

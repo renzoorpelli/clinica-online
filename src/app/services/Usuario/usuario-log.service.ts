@@ -33,4 +33,8 @@ export class UsuarioLogService {
     return false;
   }
 
+  getAll(){
+    return this.listadoLogUsuario$;
+  }
+
 }

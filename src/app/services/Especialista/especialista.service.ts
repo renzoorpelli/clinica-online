@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Repository } from 'src/app/Data/common-repository.interface';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import {
   CollectionReference,
   DocumentData,
@@ -89,6 +89,7 @@ export class EspecialistaService {
     const docRefFinishedShift = shiftFinished
       .filter((s) => s.estado === 5)
       .map((s) => s.docRefPaciente);
+
     return pacients.filter((p) =>
       docRefFinishedShift.includes(p.docRefPaciente)
     );
@@ -101,6 +102,13 @@ export class EspecialistaService {
     } catch (error) {
       console.log(error);
     }
+  }
 
+
+  getSelectedSpecialist(docRefs:string[]){
+    let collection = this._especialistaRepository.getAll()
+    .pipe( map(sp => sp.filter(specialistF => docRefs.includes(specialistF.docRefEspecialista!))))
+
+     return collection
   }
 }

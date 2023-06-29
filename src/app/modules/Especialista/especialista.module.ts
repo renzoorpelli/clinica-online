@@ -22,6 +22,9 @@ import { PacientesComponent } from 'src/app/pages/Especialista/pacientes/pacient
 import { HistoriaClinicaPacienteComponent } from 'src/app/components/Especialista/historia-clinica-paciente/historia-clinica-paciente.component';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ObtenerhistoriaClinicaPacienteComponent } from 'src/app/components/Especialista/obtenerhistoria-clinica-paciente/obtenerhistoria-clinica-paciente.component';
+import { MyReviewsComponent } from 'src/app/pages/Especialista/my-reviews/my-reviews.component';
+import { EspecialistaPacientesMainComponent } from 'src/app/pages/Especialista/especialista-pacientes-main/especialista-pacientes-main.component';
+import { ShiftsOfMyPacientsComponent } from 'src/app/components/Especialista/shifts-of-my-pacients/shifts-of-my-pacients.component';
 
 
 @NgModule({
@@ -37,8 +40,10 @@ import { ObtenerhistoriaClinicaPacienteComponent } from 'src/app/components/Espe
     AgendaMainComponent,
     PacientesComponent,
     HistoriaClinicaPacienteComponent,
-    ObtenerhistoriaClinicaPacienteComponent
-
+    ObtenerhistoriaClinicaPacienteComponent,
+    MyReviewsComponent,
+    EspecialistaPacientesMainComponent,
+    ShiftsOfMyPacientsComponent
   ],
   imports: [
     CommonModule,

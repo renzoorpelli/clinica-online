@@ -22,3 +22,34 @@
   justify-content: center; /* Horizontally center the buttons */
   align-items: center; /* Vertically center the buttons */
 }
+
+.fav-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.fav-button {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.custom-btn-outline-secondary {
+  border-radius: 50%;
+  color: #43b88f;
+  background-color: transparent;
+  border-color: #43b88f;
+}
+
+.custom-btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #43b88f;
+  border-color: #43b88f;
+}

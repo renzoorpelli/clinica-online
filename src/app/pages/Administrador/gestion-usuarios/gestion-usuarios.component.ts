@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { ShiftsPacientComponent } from 'src/app/components/Administrador/shifts-pacient/shifts-pacient.component';
 import { ObtenerhistoriaClinicaPacienteComponent } from 'src/app/components/Especialista/obtenerhistoria-clinica-paciente/obtenerhistoria-clinica-paciente.component';
 import { Especialista } from 'src/app/interfaces/Especialista';
 import { Paciente } from 'src/app/interfaces/Paciente';
@@ -65,6 +66,18 @@ export class GestionUsuariosComponent implements OnInit, OnDestroy{
 
   generateExcelUsers(data:any){
     this._excelService.generateSpreadSheet(data, "listadoUsuarios")
+  }
+
+  onViewShiftPacient(pacient:Paciente){
+    const modalRef = this._modalService.open(ShiftsPacientComponent, {centered: true});
+
+    modalRef.componentInstance.data = pacient;
+
+    modalRef.result.then(result => {
+      console.log(result)
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
 }

@@ -5,6 +5,8 @@ import { AgendaMainComponent } from 'src/app/pages/Especialista/agenda-main/agen
 import { CrearAgendaEspecialistaComponent } from 'src/app/pages/Especialista/crear-agenda-especialista/crear-agenda-especialista.component';
 import { CrearTurnosEspecialistaComponent } from 'src/app/pages/Especialista/crear-turnos-especialista/crear-turnos-especialista.component';
 import { EspecialistaMainComponent } from 'src/app/pages/Especialista/especialista-main/especialista-main.component';
+import { EspecialistaPacientesMainComponent } from 'src/app/pages/Especialista/especialista-pacientes-main/especialista-pacientes-main.component';
+import { MyReviewsComponent } from 'src/app/pages/Especialista/my-reviews/my-reviews.component';
 import { ObtenerAgendaComponent } from 'src/app/pages/Especialista/obtener-agenda/obtener-agenda.component';
 import { ObtenerTurnosEspecialistaComponent } from 'src/app/pages/Especialista/obtener-turnos-especialista/obtener-turnos-especialista.component';
 import { PacientesComponent } from 'src/app/pages/Especialista/pacientes/pacientes.component';
@@ -17,7 +19,11 @@ const routes: Routes = [
       {path: 'crear', component: CrearAgendaEspecialistaComponent},
       {path: 'obtener', component: ObtenerAgendaComponent}
     ]},
-    {path: "pacientes", component: PacientesComponent}
+    {path: "pacientes", component: EspecialistaPacientesMainComponent, children:[
+      {path: '', component: PacientesComponent},
+      {path: 'obtener', component: PacientesComponent},
+      {path: 'resenia', component: MyReviewsComponent},
+    ]}
   ], canActivate: [EspecialistaAuthGuardService]},
 
 

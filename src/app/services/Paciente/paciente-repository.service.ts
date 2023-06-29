@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Repository } from 'src/app/Data/common-repository.interface';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import {
   CollectionReference,
   DocumentData,
@@ -71,6 +71,11 @@ export class PacienteRepositoryService implements Repository<Paciente> {
   async getPacienteByDocRef(pacientDocRef: string): Promise<DocumentSnapshot> {
     const documentReference = doc(this.listadoPacientes, pacientDocRef);
     return await getDoc(documentReference);
+  }
+
+   getPacienteByDocRefObservable(pacientDocRef: string): Observable<DocumentSnapshot> {
+    const documentReference = doc(this.listadoPacientes, pacientDocRef);
+    return from(getDoc(documentReference));
   }
 
   updateShiftAttriubte(turno:Turno, docRefPaciente:string ){

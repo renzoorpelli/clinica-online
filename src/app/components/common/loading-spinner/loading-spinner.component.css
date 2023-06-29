@@ -1,0 +1,23 @@
+.bar {
+  animation: slideDown 2s infinite;
+  border: 16px solid #20c997; /* Light grey */
+  border-top: 16px solid #20c997; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
+@keyframes slideDown {
+  0% { transform: translateY(-100px); }
+  50% { transform: translateY(100px); }
+  100% { transform: translateY(-100px); }
+}
+
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  text-align: center;
+}

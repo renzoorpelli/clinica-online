@@ -34,6 +34,8 @@ export class ProfileComponent {
 
     modalRef.componentInstance.data = this.userProfileLocalStorage.historiaClinica;
 
+    modalRef.componentInstance.userCaller = this.userFromLocalStorage;
+
     modalRef.result.then(result => {
       console.log(result)
     }).catch(err => {

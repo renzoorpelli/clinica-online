@@ -1,0 +1,32 @@
+<div class="container">
+  <ng-container *ngIf="!this.data">
+    <p class="lead">El Paciente no tiene turnos</p>
+  </ng-container>
+  <ng-container *ngIf="this.data.turnos">
+    <h4>Turnos del paciente: <strong>{{this.data.nombre}}, {{this.data.apellido}}.</strong></h4>
+      <table class="table table-hover mt-3" id="tableToPrint">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Especialidad</th>
+            <th>Tipo</th>
+            <th>Observaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.data.turnos; let i = index">
+            <td>{{item.fechaTurno | formatDate : "yyyy-MM-dd h:mm a"}}</td>
+            <td>{{returnNameShiftState(item.estado)}}</td>
+            <td>{{item.especialidad.toUpperCase()}}</td>
+            <td>{{returnNameOfTypeShift(item.tipo)}}</td>
+            <td *ngIf="item.estado === 5">{{resenias[randomIndexes[i % randomIndexes.length]]}}</td>
+            <td *ngIf="item.estado !== 5"><strong>No Corresponde</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mb-3">
+        <button class="btn btn-outline-danger">Cerrar</button>
+      </div>
+  </ng-container>
+  </div>

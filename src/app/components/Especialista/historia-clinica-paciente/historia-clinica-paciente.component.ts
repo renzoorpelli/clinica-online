@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Paciente } from 'src/app/interfaces/Paciente';
+import { Usuario } from 'src/app/interfaces/Usuario';
 import { EspecialistaService } from 'src/app/services/Especialista/especialista.service';
+import { PDFService } from 'src/app/services/File/pdf.service';
 
 @Component({
   selector: 'app-historia-clinica-paciente',
@@ -13,6 +15,7 @@ export class HistoriaClinicaPacienteComponent implements OnInit{
 
   formHistoriaClinica!: FormGroup;
   @Input() pacientFromComponent!:Paciente;
+
   constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private _specialistService: EspecialistaService){
 
   }

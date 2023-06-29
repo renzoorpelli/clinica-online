@@ -1,0 +1,13 @@
+<div class="container">
+  <h4>Mis Reseñas</h4>
+  <p class="lead">Aquí podrás ver las reseñas de los turnos de tus pacientes</p>
+  <div class="col table-container">
+    <div class="fav-button-row">
+      <div *ngFor="let item of this._pacientList" class="fav-button" (click)="onReviewShiftPacient(item)">
+        <button class="btn custom-btn-outline-secondary">
+          <img class="profile-image" src="{{ item.imagenPerfil1 }}" alt="Profile Image" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

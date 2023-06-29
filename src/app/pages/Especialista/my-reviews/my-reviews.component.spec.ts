@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TurnosComponent } from './turnos.component';
+import { MyReviewsComponent } from './my-reviews.component';
 
-describe('TurnosComponent', () => {
-  let component: TurnosComponent;
-  let fixture: ComponentFixture<TurnosComponent>;
+describe('MyReviewsComponent', () => {
+  let component: MyReviewsComponent;
+  let fixture: ComponentFixture<MyReviewsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TurnosComponent ]
+      declarations: [ MyReviewsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TurnosComponent);
+    fixture = TestBed.createComponent(MyReviewsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -10,6 +10,13 @@ import { EspecialistaPendientePipe } from 'src/app/pipes/especialista/especialis
 import { PacientePendientePipe } from 'src/app/pipes/paciente/paciente-pendiente.pipe';
 import { GestionUsuariosComponent } from 'src/app/pages/Administrador/gestion-usuarios/gestion-usuarios.component';
 import { ExcelService } from 'src/app/services/File/excel.service';
+import { ObtenerEstadisticasComponent } from 'src/app/pages/Administrador/obtener-estadisticas/obtener-estadisticas.component';
+import { GenerateGraphComponent } from 'src/app/components/Administrador/generate-graph/generate-graph.component';
+import { PDFService } from 'src/app/services/File/pdf.service';
+import { GraphService } from 'src/app/services/Administrador/graph.service';
+import { LoadingSpinnerComponent } from 'src/app/components/common/loading-spinner/loading-spinner.component';
+import { ShiftsPacientComponent } from 'src/app/components/Administrador/shifts-pacient/shifts-pacient.component';
+import { PacienteModule } from '../Paciente/paciente.module';
 
 
 @NgModule({
@@ -18,18 +25,25 @@ import { ExcelService } from 'src/app/services/File/excel.service';
     AdminAltaComponent,
     EspecialistaPendientePipe,
     PacientePendientePipe,
-    GestionUsuariosComponent
+    GestionUsuariosComponent,
+    ObtenerEstadisticasComponent,
+    GenerateGraphComponent,
+    LoadingSpinnerComponent,
+    ShiftsPacientComponent
   ],
   imports: [
+    AdministradorRoutingModule,
     CommonModule,
     FormsModule,
     FormModule,
     ReactiveFormsModule,
     CommonModule,
-    AdministradorRoutingModule
+    PacienteModule
   ],
   providers:[
-    ExcelService
+    ExcelService,
+    PDFService,
+    GraphService
   ]
 })
 export class AdministradorModule { }

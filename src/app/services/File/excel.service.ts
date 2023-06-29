@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Usuario } from 'src/app/interfaces/Usuario';
 import * as XLSX from 'xlsx'
 
 
@@ -9,10 +10,10 @@ export class ExcelService  {
   constructor(){
 
   }
-  generateSpreadSheet(data:any, title:string){
+  generateSpreadSheet(data:Usuario[], title:string){
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data.map(({password, ...rest}) => rest));
 
     XLSX.utils.book_append_sheet(wb, ws, 'Hoja 1');
 

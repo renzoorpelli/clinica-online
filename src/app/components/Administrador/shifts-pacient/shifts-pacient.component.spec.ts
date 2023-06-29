@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TurnosMainComponent } from './turnos-main.component';
+import { ShiftsPacientComponent } from './shifts-pacient.component';
 
-describe('TurnosMainComponent', () => {
-  let component: TurnosMainComponent;
-  let fixture: ComponentFixture<TurnosMainComponent>;
+describe('ShiftsPacientComponent', () => {
+  let component: ShiftsPacientComponent;
+  let fixture: ComponentFixture<ShiftsPacientComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TurnosMainComponent ]
+      declarations: [ ShiftsPacientComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TurnosMainComponent);
+    fixture = TestBed.createComponent(ShiftsPacientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,12 +9,17 @@
           <div class="card card-custom-especialist mb-3">
             <div class="card-body text-center">
               <button
+                #btnRef
+                appTooltip="{{ specialist.nombre!.toUpperCase() }} {{
+                  specialist.apellido!.toUpperCase()
+                }}"
+                [buttonRef]="btnRef"
                 (click)="onEspecialistaChange(specialist)"
                 class="btn btn-outline-secondary"
               >
                 <img
                   [src]="specialist.imagenPerfil1"
-                  alt="Specialist Image"
+                  alt="Imagen del especialista"
                   class="img-fluid"
                 />
               </button>
@@ -23,25 +28,6 @@
         </div>
       </div>
     </ng-container>
-
-    <!--
-    <ng-container
-    *ngIf="selectedSpecialist && selectedSpecialist.especialidades"
-  >
-  <div class="row">
-    <label class="lead mt-3 mb-3">El especialista atiende las siguientes especialidades en los días:</label>
-    <div class="col-md-4" *ngFor="let item of selectedSpecialist.especialidades">
-      <div class="card card-custom mb-3">
-        <div class="card-header">ESPECIALIDAD: {{ item.nombre.toUpperCase() }}</div>
-        <div class="card-body">
-          <p>Día: {{ item.agenda.dia }}</p>
-          <p>Desde: {{ item.agenda.desde }}</p>
-          <p>Hasta: {{ item.agenda.hasta }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  </ng-container> -->
 
     <div class="row">
       <ng-container
@@ -82,8 +68,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group mt-3">
-        </div>
+        <div class="form-group mt-3"></div>
       </ng-container>
       <ng-container
         *ngIf="
@@ -107,38 +92,35 @@
               </ng-container>
               <ng-container *ngIf="selectedSpecialist.turnos!.length > 0">
                 <div
-                class="col-sm-12 col-md-4 col-lg-3"
-                *ngFor="
-                  let element of selectedSpecialist.turnos!
-                    | filterShiftBySpeciality : specialitySelected
-                "
-              >
-                <div class="card mb-4">
-                  <div class="card-body text-center">
-                    <h5 class="card-title">
-                      ESPECIALIDAD: {{ element.especialidad }}
-                    </h5>
-                    <p class="card-text">
-                      {{
-                        element.fechaTurno! | formatDate : "yyyy-MM-dd h:mm a"
-                      }}
-                    </p>
-                    <button
-                      class="btn btn-outline-secondary"
-                      (click)="onTurnoChange(element)"
-                    >
-                      SELECCIONAR TURNO
-                    </button>
+                  class="col-sm-12 col-md-4 col-lg-3"
+                  *ngFor="
+                    let element of selectedSpecialist.turnos!
+                      | filterShiftBySpeciality : specialitySelected
+                  "
+                >
+                  <div class="card mb-4">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">
+                        ESPECIALIDAD: {{ element.especialidad }}
+                      </h5>
+                      <p class="card-text">
+                        {{
+                          element.fechaTurno! | formatDate : "yyyy-MM-dd h:mm a"
+                        }}
+                      </p>
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="onTurnoChange(element)"
+                      >
+                        SELECCIONAR TURNO
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               </ng-container>
             </div>
           </div>
         </div>
-
-
-
       </ng-container>
       <ng-container *ngIf="this.shiftSelected">
         <div class="form-group mt-3">
@@ -173,14 +155,12 @@
     <div class="form-group">
       <ng-container *ngIf="this.shiftSelected">
         <button
-        type="submit"
-        [disabled]="
-          !this.turnoPacienteForm.get('aceptaTerminos')?.value
-        "
-        class="btn btn-outline-secondary"
-      >
-        Asignar Turno
-      </button>
+          type="submit"
+          [disabled]="!this.turnoPacienteForm.get('aceptaTerminos')?.value"
+          class="btn btn-outline-secondary"
+        >
+          Asignar Turno
+        </button>
       </ng-container>
       <ng-container *ngIf="this.specialistSelected">
         <button (click)="undoChanges()" class="btn btn-outline-danger mx-2">

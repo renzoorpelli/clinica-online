@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GetAllTurnosComponent } from './get-all-turnos.component';
+import { LoadingSpinnerComponent } from './loading-spinner.component';
 
-describe('GetAllTurnosComponent', () => {
-  let component: GetAllTurnosComponent;
-  let fixture: ComponentFixture<GetAllTurnosComponent>;
+describe('LoadingSpinnerComponent', () => {
+  let component: LoadingSpinnerComponent;
+  let fixture: ComponentFixture<LoadingSpinnerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GetAllTurnosComponent ]
+      declarations: [ LoadingSpinnerComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GetAllTurnosComponent);
+    fixture = TestBed.createComponent(LoadingSpinnerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
